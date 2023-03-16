@@ -1,0 +1,61 @@
+.product-container {
+	width: 1100px;
+	height: 800px;
+}
+
+.product {
+	float: left;
+	margin: 30px;
+	text-align: center;
+	border: 1px solid blue;
+}
+
+.product:hover {
+	border: 1px solid red;
+}
+
+.product-image {
+	width: 200px;
+	height: auto;
+}
+
+.thumbnail {
+	position: relative;
+}
+
+.item-state,
+.item-reduce {
+	position: absolute;
+	display: block;
+	height: 45px;
+	width: 45px;
+	top: 8px;
+	color: white;
+	border-radius: 100%;
+}
+
+.item-state {
+	left: 2px;
+	background-color: green;
+}
+
+.item-reduce {
+	left: 145px;
+	background-color: red;
+}
+
+.item-text {
+	position: absolute;
+	top: 12px;
+	left: 8px;
+}
+
+.current-price {
+	color: green;
+	font-weight: bold;
+}
+
+.previous-price {
+	color: grey;
+	text-decoration: line-through;
+}
