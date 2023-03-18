@@ -1,0 +1,132 @@
+body,
+html {
+	width: 100vw;
+	height: fit-content;
+}
+.navbar {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 65px;
+	/* background-color: green; */
+}
+#avengers_logo {
+	height: 50px;
+	width: fit-content;
+	padding-left: 50px;
+	padding-top: 10px;
+}
+.navbar > ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	float: right;
+}
+.nav-list-item {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
+	width: 100px;
+	font: 25px bold;
+	color: white;
+	margin: 25px;
+	padding: 20px 30px;
+}
+.article-title {
+	/* font-size: 50px; */
+	color: green;
+}
+article {
+	background-image: url(./assets/loki-avengers-0.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: fixed;
+	left: 0cm;
+	top: 65px;
+	width: 100%;
+	min-height: 100vh;
+	padding-left: 50px;
+	padding-right: 50px;
+	font-family: "Norican", cursive;
+	font-size: larger;
+	letter-spacing: 0.1em;
+}
+#grid {
+	display: table;
+	position: fixed;
+	padding-left: 50px;
+	padding-right: 50px;
+	left: 0cm;
+	top: 228px;
+	width: 94%;
+	min-height: 100vh;
+}
+.row {
+	display: table-row;
+}
+.column {
+	display: table-cell;
+}
+.cell {
+	color: yellow;
+	margin: 10px;
+	width: 500px;
+	height: fit-content;
+}
+#grid .row:first-child .column:last-child {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+footer {
+	position: absolute;
+	width: 30%;
+	bottom: 0;
+	right: 0;
+	height: 80px;
+	text-align: right;
+	padding-right: 50px;
+	padding-bottom: 30px;
+}
+.bottom-link {
+	font-family: "Norican", cursive;
+	font-size: xx-large;
+	letter-spacing: 0.1em;
+	color: white;
+	padding-left: 200px;
+}
+
+@media screen and (min-width: 600px) and (max-width: 767px) {
+	.article-title {
+		font-size: 35px;
+	}
+	.navbar {
+		background-color: yellow;
+		color: black;
+	}
+}
+@media screen and (min-width: 768px) and (max-width: 991px) {
+	.article-title {
+		font-size: 25px;
+	}
+	.navbar {
+		background-color: lightgreen;
+		color: black;
+	}
+}
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+	.navbar {
+		background-color: red;
+		color: white;
+	}
+}
+@media screen and (min-width: 1200px) {
+	.article-title {
+		font-size: 50px;
+	}
+	.navbar {
+		background-color: black;
+		color: white;
+	}
+}
