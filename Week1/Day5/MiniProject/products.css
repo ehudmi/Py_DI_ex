@@ -1,13 +1,18 @@
+button {
+	padding: 8px;
+	margin: 5px;
+}
+
 .product-container {
-	width: 1100px;
+	width: 1200px;
 	height: 800px;
 }
 
 .product {
 	float: left;
-	margin: 30px;
+	margin: 10px;
 	text-align: center;
-	border: 1px solid blue;
+	border: 1px solid white;
 }
 
 .product:hover {
@@ -15,39 +20,108 @@
 }
 
 .product-image {
-	width: 200px;
+	width: 170px;
 	height: auto;
+	border-top-left-radius: 5%;
+	border-top-right-radius: 5%;
 }
 
 .thumbnail {
 	position: relative;
 }
 
+.button-group {
+	position: absolute;
+	display: inline-block;
+	width: 150px;
+	top: 100px;
+	left: 10px;
+}
+
+.thumbnail .button-group {
+	visibility: hidden;
+}
+
+.thumbnail:hover .button-group {
+	visibility: visible;
+}
+
+button:hover {
+	background-color: aqua;
+}
+
+.look,
+.bag,
+.cart {
+	position: relative;
+}
+
+.look .tooltiptext {
+	position: absolute;
+	color: white;
+	background-color: black;
+	width: 80px;
+	bottom: 150%;
+	left: 250%;
+	margin-left: -60px;
+	visibility: hidden;
+}
+
+.look:hover .tooltiptext {
+	visibility: visible;
+}
+.bag .tooltiptext {
+	position: absolute;
+	color: white;
+	background-color: black;
+	width: 120px;
+	bottom: 150%;
+	left: 60%;
+	margin-left: -60px;
+	visibility: hidden;
+}
+
+.bag:hover .tooltiptext {
+	visibility: visible;
+}
+.cart .tooltiptext {
+	position: absolute;
+	color: white;
+	background-color: black;
+	width: 80px;
+	bottom: 150%;
+	left: -80%;
+	margin-left: -60px;
+	visibility: hidden;
+}
+
+.cart:hover .tooltiptext {
+	visibility: visible;
+}
+
 .item-state,
 .item-reduce {
 	position: absolute;
-	display: block;
-	height: 45px;
-	width: 45px;
-	top: 8px;
+	height: 40px;
+	width: 40px;
+	top: 6px;
 	color: white;
 	border-radius: 100%;
 }
 
 .item-state {
-	left: 2px;
 	background-color: green;
 }
 
 .item-reduce {
-	left: 145px;
+	left: 125px;
 	background-color: red;
 }
 
 .item-text {
 	position: absolute;
 	top: 12px;
-	left: 8px;
+	left: 3px;
 }
 
 .current-price {
@@ -58,4 +132,30 @@
 .previous-price {
 	color: grey;
 	text-decoration: line-through;
+}
+
+@media screen and (max-width: 599px) {
+	.product-container {
+		width: 300px;
+	}
+}
+@media screen and (min-width: 600px) and (max-width: 767px) {
+	.product-container {
+		width: 300px;
+	}
+}
+@media screen and (min-width: 768px) and (max-width: 991px) {
+	.product-container {
+		width: 500px;
+	}
+}
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+	.product-container {
+		width: 900px;
+	}
+}
+@media screen and (min-width: 1200px) {
+	.product-container {
+		width: 1200px;
+	}
 }
