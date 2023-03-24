@@ -44,11 +44,12 @@ article {
     color: white;
 }
 
-    
-    
-    
-
-
-.Tagline {
-
+#SubBut {
+    background-color: blue;
+    color: white;
+    width: 75px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
 }
