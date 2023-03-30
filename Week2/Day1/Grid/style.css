@@ -1,0 +1,134 @@
+.container {
+	display: grid;
+	grid-template-columns: 1fr 3fr;
+	grid-template-rows: 1fr 1fr 1fr 1fr;
+	gap: 10px;
+	width: 600px;
+	padding: 10px;
+	border: 1px solid black;
+}
+
+.pink_box {
+	height: 75px;
+	background-color: pink;
+}
+
+.blue_box {
+	height: 75px;
+	background-color: blue;
+}
+.yellow_box {
+	grid-column: span 2;
+	background-color: yellow;
+}
+
+.container1 {
+	display: grid;
+	grid-template-columns: 4fr 3fr 3fr;
+	grid-template-rows: 1fr 3fr 2fr 3fr 2fr 1fr;
+	gap: 10px;
+	width: 600px;
+	height: 600px;
+	padding: 10px;
+	border: 1px solid black;
+}
+
+.container1 div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.header {
+	grid-column: 1 / span 3;
+	background-color: aqua;
+}
+
+.hero {
+	grid-area: 2/1 / span 1 / span 1;
+	background-color: plum;
+}
+.main {
+	grid-area: 2/2 / span 2 / span 2;
+	background-color: yellow;
+}
+.sidebar {
+	grid-area: 3/1 / span 2 / span 1;
+	background-color: olive;
+}
+.extra {
+	grid-area: 4/2 / span 1 / span 2;
+	background-color: grey;
+}
+.images {
+	grid-area: 5/1 / span 1 / span 2;
+	background-color: green;
+}
+.posts {
+	grid-area: 5/3 / span 1 / span 1;
+	background-color: pink;
+}
+.footer {
+	grid-area: 6/1 / span 1 / span 3;
+	background-color: orange;
+}
+
+.container2 {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(5, 1fr);
+	gap: 10px;
+	width: 600px;
+	padding: 10px;
+	border: 1px solid black;
+	text-align: center;
+}
+
+.container2 div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 20px;
+	color: white;
+}
+
+.vine {
+	background-color: red;
+}
+.purple {
+	background-color: purple;
+}
+.dark_blue {
+	background-color: darkblue;
+}
+.cyan {
+	background-color: cyan;
+}
+.plum {
+	background-color: plum;
+}
+
+.container2 :nth-child(1) {
+	grid-column: 1 / span 3;
+}
+.container2 :nth-child(2) {
+	grid-area: 2/1 / span 2 / span 1;
+}
+.container2 :nth-child(3) {
+	grid-area: 2/2 / span 1 / span 1;
+}
+.container2 :nth-child(4) {
+	grid-area: 2/3 / span 1 / span 1;
+}
+.container2 :nth-child(5) {
+	grid-area: 3/2 / span 1 / span 2;
+}
+.container2 :nth-child(6) {
+	grid-area: 4/1 / span 1 / span 2;
+}
+.container2 :nth-child(7) {
+	grid-area: 4/3 / span 1 / span 1;
+}
+.container2 :nth-child(8) {
+	grid-area: 5/1 / span 1 / span 3;
+}

@@ -1,0 +1,13 @@
+Instructions
+Using the Avengers Daily Challenge, we will add media queries to change the styling of the page depending on the screen size (computer, tablet, smartphone).
+Font size of the title
+on Medium devices (landscape tablets, 768px and up) : 25px
+on Small devices (portrait tablets and large phones, 600px and up): 35px
+Navbar background color
+Small devices : yellow and font color black
+Medium devices : lightgreen and font color black.
+Large devices (laptops/desktops, 992px and up) : red and font color white.
+Extra large devices (large laptops and desktops, 1200px and up) : black and font color white.
+Position of the text
+Large devices: the title is next to the paragraph.
+Small devices: the title is above the paragraph.
