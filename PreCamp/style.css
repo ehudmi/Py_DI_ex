@@ -21,7 +21,8 @@ body {
 main {
   height: calc(100vh-70px);
   display: flex;
-  background-color: #f9f99f;
+  background-color: #f9f9f9;
+  flex-direction: row;
 }
 
 .side-bar {
@@ -121,11 +122,13 @@ hr {
 
 .content {
   background-color: #f9f9f9;
-  width: auto;
+  width: 100%;
   height: 100%;
   padding: 15px 15px;
   border-top: 1px solid #ddd;
   overflow-y: scroll;
+  flex-direction: row
+  
 }
 
 .videos {
@@ -137,7 +140,8 @@ hr {
 
 .video {
   width: 270px;
-  margin-bottom: 30px;
+  margin:30px, 30px;
+  border-style: dashed;
 }
 
 .thumbnail {

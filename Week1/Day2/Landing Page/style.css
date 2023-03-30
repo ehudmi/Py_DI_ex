@@ -1,0 +1,55 @@
+body {
+    font-family: "gotham-rounded", Helvetica;
+}
+
+.header {
+    background-color: rgb(207, 207, 234);
+    display: flex;
+    max-width: 100%;
+    height: 50px;
+    justify-content: space-between;
+    padding: 0px 150px;
+    font-size: large;
+}
+
+.Title {
+    margin: 15px;
+}
+
+button {
+    background-color: blue;
+    color: white;
+    width: 75px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+}
+article {
+    display: block;
+    height: 400px;
+    background-image:url(pexels-kellie-churchman-1001682.jpg);
+    filter: brightness(80%);
+}
+
+.content {
+    padding: 200px 0px;
+    text-align: center;
+    filter: brightness(100%)
+}
+
+.Tagline {
+    font-size:xx-large;
+    display: flexbox;
+    color: white;
+}
+
+#SubBut {
+    background-color: blue;
+    color: white;
+    width: 75px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+}
