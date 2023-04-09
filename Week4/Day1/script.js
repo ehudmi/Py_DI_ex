@@ -23,7 +23,6 @@
 // };
 // myFamilyAge(20);
 
-let input = "madam";
 let checkPal = (inputWord) => {
 	inputWord = inputWord.toLowerCase();
 	let bool = true;
