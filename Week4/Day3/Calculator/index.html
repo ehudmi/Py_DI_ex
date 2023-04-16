@@ -3,19 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title></title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
     <script defer src="script.js"></script>
-    <style>
-      button {
-        width:70px;
-        height:70px;
-      }
-    </style>
   </head>
   <body>
-    <button type="button" name="button" onclick="clear();">CLEAR</button>
-    <button type="button" name="button" onclick="reset();">RESET</button>
+    <div>
+    <h1 id="inputField">0</h1>
+  </div>
+    <button type="button" class="specbutt" name="button" onclick="clear();">CLEAR</button>
+    <button type="button" class="specbutt" name="button" onclick="reset();">RESET</button>
     <br>
+    <button type="button" name="button" onclick="number(0);">0</button>
     <button type="button" name="button" onclick="number(1);">1</button>
     <button type="button" name="button" onclick="number(2);">2</button>
     <button type="button" name="button" onclick="number(3);">3</button>
@@ -23,15 +21,15 @@
     <button type="button" name="button" onclick="number(4);">4</button>
     <button type="button" name="button" onclick="number(5);">5</button>
     <button type="button" name="button" onclick="number(6);">6</button>
-    <br>
     <button type="button" name="button" onclick="number(7);">7</button>
+    <br>
     <button type="button" name="button" onclick="number(8);">8</button>
     <button type="button" name="button" onclick="number(9);">9</button>
-    <button type="button" name="button" onclick="number(0);">0</button>
-    <br>
+    <button type="button" name="button" onclick="number(`.`);">.</button>
     <button type="button" name="button" onclick="operator('+');">+</button>
+    <br>
     <button type="button" name="button" onclick="operator('-');">-</button>
-    <button type="button" name="button" onclick="operator('*');">*</button>
+    <button type="button" name="button" onclick="operator('X');">X</button>
     <button type="button" name="button" onclick="operator('/');">/</button>
     <button type="button" name="button" onclick="equal();">=</button>
   </body>

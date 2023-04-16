@@ -1,0 +1,19 @@
+div {
+    display: flex;
+    max-width:289px;
+    height:fit-content;
+    border: 100% 5px;
+    background-color: white;
+    border-color: black;
+    border-style: double;
+    
+}
+button {
+    width:70px;
+    height:70px;
+    
+  }
+.specbutt {
+    width:144px;
+    height:70px;
+  }
