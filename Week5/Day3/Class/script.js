@@ -1,26 +1,35 @@
-let arr = [
-	{ id: 1, user: "John", email: "john@gmail.com" },
-	{ id: 2, user: "Sara", email: "sara@gmail.com" },
-	{ id: 3, user: "Yasaar", email: "yasaar@gmail.com" },
-	{ id: 10, user: "Yeshna", email: "yeshna@gmail.com" },
-	{ id: 5, user: "Varshana", email: "varshana@gmail.com" },
-];
+// reverse a given string;
 
-const root = document.getElementById("root");
-function createUsers() {
-	root.innerHTML = "";
-	for (let i = 0; i < arr.length; i++) {
-		let div = document.createElement("div");
-		div.classList.add("inner-div");
-		let image = document.createElement("img");
-		image.setAttribute("src", `https://robohash.org/${arr[i].id}`);
-		div.appendChild(image);
-		root.appendChild(div);
-		let name = document.createElement("h2");
-		name.innerText = `${arr[i].user}`;
-		div.appendChild(name);
-		let email = document.createElement("p");
-		email.innerText = `${arr[i].email}`;
-		div.appendChild(email);
-	}
+// let reverse = (string) => {
+// 	let arr = string.split(" ");
+// 	let reversed = "";
+// 	for (let i = 0; i < arr.length; i++) {
+// 		let word = arr[i].split("");
+// 		let flippedWord = "";
+// 		for (let x = 0; x < word.length; x++) {
+// 			flippedWord = flippedWord + word[word.length - x - 1];
+// 		}
+// 		reversed = reversed + flippedWord + " ";
+// 	}
+// 	return reversed;
+// };
+// console.log(reverse("hi!"));
+// console.log("before");
+// setTimeout(function () {
+// 	console.log("hi");
+// }, 3000);
+// console.log("after");
+let id;
+let i = 0;
+const box = document.getElementById("box");
+function start() {
+	id = setInterval(function () {
+		box.style.left = i + "px";
+		i == 350 ? stop() : false;
+		i++;
+	}, 5);
+}
+
+function stop() {
+	clearInterval(id);
 }
