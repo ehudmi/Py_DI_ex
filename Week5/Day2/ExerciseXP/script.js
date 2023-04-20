@@ -6,15 +6,14 @@
 //     <h1> Some Facts </h1>
 //     <h2> The Chocolate </h2>
 //     <h3> History of the chocolate </h3>
-//     <p> Chocolate is made from tropical Theobroma cacao tree seeds. 
+//     <p> Chocolate is made from tropical Theobroma cacao tree seeds.
 //     Its earliest use dates back to the Olmec civilization in Mesoamerica.</p>
-//     <p> After the European discovery of the Americas, chocolate became 
+//     <p> After the European discovery of the Americas, chocolate became
 //     very popular in the wider world, and its demand exploded. </p>
-//     <p> Chocolate has since become a popular food product that millions enjoy every day, 
-//     thanks to its unique, rich, and sweet taste.</p> 
-//     <p> But what effect does eating chocolate have on our health?</p> 
+//     <p> Chocolate has since become a popular food product that millions enjoy every day,
+//     thanks to its unique, rich, and sweet taste.</p>
+//     <p> But what effect does eating chocolate have on our health?</p>
 // </article>
-
 
 // Using a DOM property, retrieve the h1 and console.log it.
 // console.log(document.body.firstElementChild.firstElementChild);
@@ -63,7 +62,6 @@
 // }
 // para[1].addEventListener("mouseover",anim);
 
-
 // 🌟 Exercise 2 : Work With Forms
 // Instructions
 // Copy the code below, into a structured HTML file:
@@ -74,9 +72,8 @@
 //   <label for="lname">Last name:</label><br>
 //   <input type="text" id="lname" name="lname"><br><br>
 //   <input type="submit" value="Submit" id="submit">
-// </form> 
+// </form>
 // <ul class="usersAnswer"></ul>
-
 
 // Retrieve the form and console.log it.
 // console.log(document.forms[0]);
@@ -118,7 +115,6 @@
 //     <li>last name of the user</li>
 // </ul>
 
-
 // 🌟 Exercise 3 : Transform The Sentence
 // Instructions
 // Add this sentence to your HTML file then follow the steps :
@@ -127,58 +123,88 @@
 // <strong>end</strong> you <strong>will</strong> be great Developers!
 // <strong>Enjoy</strong> the <strong>JavaScript </strong> lessons</p>
 
-
 // In the JS file:
 
 // Declare a global variable named allBoldItems.
-let allBoldItems=[];
-// Create a function called getBold_items() that takes no parameter. This function should collect all the bold items inside the paragraph and assign them to the allBoldItems variable.
-let getBold_items= ()=>
-{
-    for(let x=0;x<document.getElementsByTagName("strong").length;x++)
-    {
-        allBoldItems.push(document.getElementsByTagName("strong")[x].textContent);  
-    }
-}
-getBold_items();
-console.log(allBoldItems);
-// Create a function called highlight() that changes the color of all the bold text to blue.
+// let allBoldItems;
+// // Create a function called getBold_items() that takes no parameter. This function should collect all the bold items inside the paragraph and assign them to the allBoldItems variable.
+// let getBold_items = () => {
+// 	allBoldItems = document.querySelectorAll("strong");
+// };
+// getBold_items();
+// // Create a function called highlight() that changes the color of all the bold text to blue.
+// let highlight = () => {
+// 	let high = document.querySelectorAll("strong");
+// 	high.forEach((element) => {
+// 		element.style.color = "blue";
+// 	});
+// };
+// // Create a function called return_normal() that changes the color of all the bold text back to black.
+// let return_normal = () => {
+// 	let normal = document.querySelectorAll("strong");
+// 	normal.forEach((element) => {
+// 		element.style.color = "black";
+// 	});
+// };
+// // Call the function highlight() on mouseover (ie. when the mouse pointer is moved onto the paragraph), and the function return_normal() on mouseout (ie. when the mouse pointer is moved out of the paragraph). Look at this example
+// document.querySelector("p").addEventListener("mouseover", highlight);
+// document.querySelector("p").addEventListener("mouseout", return_normal);
 
-// Create a function called return_normal() that changes the color of all the bold text back to black.
-
-// Call the function highlight() on mouseover (ie. when the mouse pointer is moved onto the paragraph), and the function return_normal() on mouseout (ie. when the mouse pointer is moved out of the paragraph). Look at this example
-
-
-// 🌟 Exercice 4 : Volume Of A Sphere
+// 🌟 Exercise 4 : Volume Of A Sphere
 // Instructions
 // Write a JavaScript program to calculate the volume of a sphere. Use the code below as a base:
-// <!doctype html> 
-// <html lang="en"> 
-//     <head> 
-//         <meta charset="utf-8"> 
-//         <title>Volume of a Sphere</title> 
-//         <style>  
+// <!doctype html>
+// <html lang="en">
+//     <head>
+//         <meta charset="utf-8">
+//         <title>Volume of a Sphere</title>
+//         <style>
 //             body {
 //                 padding-top:30px;
-//             } 
+//             }
 
 //             label,input {
 //                 display:block;
-//             }  
-//         </style> 
-//     </head> 
-//     <body> 
-//         <p>Input radius value and get the volume of a sphere.</p> 
-//         <form  id="MyForm"> 
-//             <label for="radius">Radius</label><input type="text" name="radius" id="radius" required> 
-//             <label for="volume">Volume</label><input type="text" name="volume" id="volume"> 
-//             <input type="submit" value="Calculate" id="submit">    
-//         </form> 
-//     </body> 
-// </html> 
-
+//             }
+//         </style>
+//     </head>
+//     <body>
+//         <p>Input radius value and get the volume of a sphere.</p>
+//         <form  id="MyForm">
+//             <label for="radius">Radius</label><input type="text" name="radius" id="radius" required>
+//             <label for="volume">Volume</label><input type="text" name="volume" id="volume">
+//             <input type="submit" value="Calculate" id="submit">
+//         </form>
+//     </body>
+// </html>
+// let calc = () => {
+// 	let rad = document.forms[0].elements[0].value;
+// 	let volume = (4 / 3) * Math.PI * Math.pow(rad, 3);
+// 	document.forms[0].elements[1].value = `${volume} m^3`;
+// 	event.preventDefault();
+// };
+// document.forms[0].addEventListener("submit", calc);
 
 // Exercise 5 : Event Listeners
 // Instructions
 // Add many events listeners to one element on your webpage. Use the click, mouseover, mouseout and dblclick events.
 // Each listener should do a different thing, for instance - change position x, change position y, change color, change the font size… and more.
+let paragon = document.getElementsByTagName("h1")[0];
+let align = () => {
+	document.body.style.textAlign = "right";
+};
+
+let color = () => {
+	paragon.style.color = "green";
+};
+
+let ital = () => {
+	paragon.style.fontStyle = "italic";
+};
+let upside = () => {
+	paragon.style.transform = "rotate(180deg)";
+};
+paragon.addEventListener("click", color);
+paragon.addEventListener("dblclick", upside);
+paragon.addEventListener("mouseout", align);
+paragon.addEventListener("mouseover", ital);
