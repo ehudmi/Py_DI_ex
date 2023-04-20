@@ -1,0 +1,9 @@
+.main-bg {
+	display: flex;
+}
+.inner-div {
+	padding: 30px;
+	border: 1px solid #000;
+	margin: 20px;
+	text-align: center;
+}
