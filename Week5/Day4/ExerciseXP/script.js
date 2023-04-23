@@ -145,3 +145,17 @@
 
 // Copy the code above, to a structured HTML file.
 // In your Javascript file add the functionality which will allow you to drag the box and drop it into the target. Check out the Course Notes named DOM animations.
+let box= document.getElementById("box");
+box.setAttribute("draggable","true");
+box.addEventListener("dragstart",function(event) {
+    event.dataTransfer.setData("text/plain",event.target.id);
+})
+let container= document.getElementById("target");
+container.addEventListener("dragover",function(event) {
+    event.preventDefault();
+})
+container.addEventListener("drop", function(event) {
+    let data=event.dataTransfer.getData("text/plain");
+    let target=document.getElementById(data);
+    container.appendChild(target);
+})
