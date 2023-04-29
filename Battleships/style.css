@@ -20,15 +20,19 @@ button {
     cursor: pointer;
     margin: 0 40%;
 }
-#scoreboard {
+#log {
     float: left;
     display: grid;
     width: 20%;
     height: 80vh;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 100px;
+    grid-template-rows: repeat(15, 1fr);
     border: 2px solid black;
     margin-right: 10px;
+    font-size: small;
+}
+#log div {
+    grid-column: 1/span 3;
 }
 
 #game_grid {
@@ -53,4 +57,19 @@ button {
 
 #game_grid div{
     border: 1px solid black;
+}
+
+.grid_square:hover {
+    background-color: rgb(5, 175, 175);
+}
+
+.destroyed {
+    display: flex;
+    text-align: center;
+    font-size:xx-large;
+    justify-content: center;
+}
+
+.destroyed.carrier,.destroyed.destroyer,.destroyed.submarine,.destroyed.battleship,.destroyed.cruiser {
+    background-color: red;
 }
