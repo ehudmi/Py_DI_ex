@@ -27,25 +27,29 @@ const quotes = [
 		likes: 0,
 	},
 ];
-let index = 4;
+
 let butt = document.getElementById("quoteGen");
 let quoteSpace = document.getElementById("quoteSpace");
-let ran;
-let check;
+let ranIndex;
+let checkIndex;
 let smallButts = document.getElementsByClassName("smallButtons");
 let answer = document.getElementById("answer");
 let quotesSearch = document.getElementById("authorQuotes");
 let quote;
+//needed to communicate between functions
 let icon;
+//needed to communicate between functions
 let auth;
-let penName;
+//needed to communicate between functions
+
 let randIndex = () => {
-	ran = Math.round(Math.random() * (index - 1));
+	ran = Math.round(Math.random() * (quotes.length - 1));
 	while (ran == check) {
-		ran = Math.round(Math.random() * (index - 1));
+		ran = Math.round(Math.random() * (quotes.length - 1));
 	}
 	check = ran;
 };
+
 let createQuote = () => {
 	quoteSpace.replaceChildren("");
 	quote = document.createElement("p");
@@ -83,24 +87,29 @@ sub.addEventListener("click", function (event) {
 	document.getElementById("newQuote").value = "";
 	index = index + 1;
 });
+
 let bar = document.getElementById("buttonBar");
 bar.children[0].addEventListener("click", function (event) {
 	answer.textContent = `The amount of characters is ${quotes[ran].quote.length}`;
 });
+
 bar.children[1].addEventListener("click", function (event) {
 	answer.textContent = `The amount of non-whitespace characters is ${
 		quotes[ran].quote.replace(/\s/g, "").length
 	}`;
 });
+
 bar.children[2].addEventListener("click", function (event) {
 	answer.textContent = `The amount of words is ${
 		quotes[ran].quote.split(" ").length
 	}`;
 });
+
 bar.children[3].addEventListener("click", function (event) {
 	quotes[ran].likes++;
 	answer.textContent = `Liked! This quote has ${quotes[ran].likes} likes!`;
 });
+
 let searchButt = document.getElementById("searchButt");
 // all quotes by the same author
 // searchButt.addEventListener("click", function (event) {
