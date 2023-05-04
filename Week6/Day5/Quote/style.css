@@ -1,0 +1,88 @@
+body {
+	background-color: rgb(164, 141, 113);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: max-content;
+	flex-direction: column;
+}
+
+#content {
+	background-color: antiquewhite;
+	width: 100vh;
+	height: 70vh;
+	margin: 50px 40px;
+	padding: 60px 30px;
+	display: flex;
+	flex-direction: column;
+}
+
+.bigButtons {
+	font-size: larger;
+	font-family: Arial, Helvetica, sans-serif;
+	height: 30px;
+	width: 200px;
+	margin: 0px 150px 30px 150px;
+	background-color: rgb(101, 194, 101);
+	color: white;
+	border: 3px solid rgb(127, 182, 200);
+}
+
+.smallButtons {
+	font-family: Arial, Helvetica, sans-serif;
+	background-color: azure;
+	border: 1px solid black;
+	margin-left: 5px;
+	visibility: hidden;
+}
+
+#quoteGen {
+	margin: 0px 37% 30px 37%;
+}
+
+p {
+	float: left;
+	color: gray;
+	font-size: 30px;
+}
+
+i {
+	font-size: 60px;
+}
+
+#author {
+	float: right;
+	color: aquamarine;
+	font-size: 30px;
+}
+
+input {
+	margin-bottom: 10px;
+}
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+#buttonBar {
+	display: flex;
+	flex-direction: row;
+}
+
+#search {
+	display: inline;
+}
+#searchBar {
+	width: 300px;
+}
+
+#pre {
+	background-color: red;
+	color: black;
+}
+
+#next {
+	background-color: green;
+	color: black;
+}

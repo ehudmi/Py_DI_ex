@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ehud's Exercise</title>
+
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+		<!-- Google Fonts -->
+		<link
+			href="https://fonts.googleapis.com/css?family=Montserrat"
+			rel="stylesheet"
+		/>
+
+		<!-- Add Bootstrap CDN style link -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+		/>
+
+		<!-- Your own stylesheet -->
+		<link rel="stylesheet" type="text/css" href="style.css" />
+
+		<!-- The JavaScript I wrote and using defer -->
+		<script defer src="script.js"></script>
+	</head>
+	<body>
+		<div id="content">
+			<button id="quoteGen" class="bigButtons">Generate Quote!</button>
+			<section id="quoteSpace"></section>
+			<div id="buttonBar">
+				<button id="charNum" class="smallButtons">How many characters?</button>
+				<button id="letNum" class="smallButtons">How many letters?</button>
+				<button id="wordNum" class="smallButtons">How many words?</button>
+				<button id="like" class="smallButtons">Like</button>
+			</div>
+			<div id="answer"></div>
+			<br />
+			<form>
+				<div id="search">
+					<input
+						id="searchBar"
+						type="text"
+						placeholder="Type the name of the author you seek"
+					/>
+					<button id="searchButt">Search!</button>
+				</div>
+			</form>
+			<div id="PreNextBar">
+				<button id="pre">Previous</button>
+				<button id="next">Next</button>
+			</div>
+			<br />
+			<div id="authorQuotes"></div>
+		</div>
+		<form>
+			<input id="newQuote" type="text" placeholder="Add a quote!" />
+			<input id="newAuthor" type="text" placeholder="Add the author!" />
+			<button id="add" class="bigButtons">Submit!</button>
+		</form>
+	</body>
+</html>
