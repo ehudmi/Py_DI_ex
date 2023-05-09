@@ -1,0 +1,17 @@
+Battleship.
+Lets first talk about the game itself and then the code.
+The game is functional and very excited to see your first hackathon project!!!
+Hopefully one in many future projects.
+The page is built well with info on the left side and the game in the center.
+I would look into a few issues:
+There is no reset button - if I want to restart the game.
+Once you are defeated- you can still click and it will tell you :
+"You have -1 shots left"
+"You have -2 shots left"
+"You have -3 shots left"...
+The game should stop at 0.
+Now the code:
+The code is well orginised and not over packed.
+I like how you only have 5 functions.
+You showed your understanding in loops,functions, dom manipulations...
+Really good job.
