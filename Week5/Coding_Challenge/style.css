@@ -1,0 +1,55 @@
+body {
+	background-color: black;
+	height: 100vh;
+	width: 100vw;
+}
+
+.image-display img {
+	position: absolute;
+	left: 40%;
+	top: 50%;
+	width: 200px;
+	height: 200px;
+	visibility: visible;
+}
+
+@keyframes awake {
+	0% {
+		opacity: 1;
+	}
+	25% {
+		opacity: 1;
+	}
+	75% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes disappear {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+		visibility: hidden;
+	}
+}
+
+.image-display img.end {
+	animation-name: awake;
+	animation-duration: 10s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: 1;
+}
+
+.image-display {
+	animation-delay: 10s;
+	animation-name: disappear;
+	animation-timing-function: ease-in-out;
+	animation-duration: 0.1ms;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+}
