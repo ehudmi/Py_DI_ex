@@ -1,0 +1,13 @@
+node.js is an environment that allows us to run js outside of the browser.
+
+we can write node in the cmd to access node.js and then we can write js inside!
+
+to exit write CTRL+C twice.
+
+what is the difference between node and the browser? in the browser you have
+the UI while in node you don't. in node' you can read and write files on you system
+while in the browser you can't.
+
+library vs framework=> you can control the flow of your code in a library, while
+in a framework you need to stick to the syntax of the framwork.
+a library has more freedom
