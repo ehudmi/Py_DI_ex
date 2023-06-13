@@ -1,0 +1,151 @@
+starting with server running
+
+already did post and get, now doing delete
+
+first, we need to create a module for delete.
+
+1- delete product by id
+const deleteProduct=(id)=>{
+    return db('products').where({id}).del.returning('*')
+}
+then, add it to the exports
+
+and add it to the controllers:
+first, remember to require it. then, write this:
+const _deleteProduct=(req, res)=>{
+    deleteProduct(req.params.id).then(data=>{res.json(data)}).catch(error=>console.log(error))
+}
+
+then add it to the routes.
+
+now, lets do the update action:
+
+update product by id- params, name & price- body
+const updateProduct= (id, product)=>{
+    return db('products').update(product) //we are sending {name:..., price:...}. where({id}).returning('*');
+}
+then, export updateProduct and import in controllers.
+
+then, write:
+
+const _updateProduct= (req, res)=>{
+    updateProduct(req.params.id, req.body).then(data=>{res.json(data)}).catch(error=>{
+        console.log(error);
+        res.status(404).json({msg: 'not found'});
+        })
+}
+and export to routes.
+
+and now we write
+
+router.put('/api/products/:id', _updateProduct)
+
+now making a search method should look like this:
+
+const searchProducts= (query)=>{
+    return db('products').select('id', 'name','price').whereILike('name', `${query}%`);
+}
+
+export and then import in controllers, and then:
+
+const _searchProducts=(req, res)=>{
+    searchProducts(req.query.name).then(data=>{res.json(data)}).catch(error=>console.log(error));
+}
+
+export this and import to routes.
+
+then add to routes: router.get('/api/search', _searchProducts);
+
+we can do the get all products like this:
+
+const getAllProducts=()=>{
+    return db.raw('select id, name, price from products');
+}
+
+and then u only need to change in the controllers that we take only data.rows, where the products are saved.
+
+part 2- static files:
+
+we open a folder called public. inside it, we create index.html ( is saved inside this folder).
+
+we add to the server.js: app.use('/', express.static(_dirname+'public')). after this, we can go to the html file from the browser.
+
+if we want to hide the file name(index.html), we can use:
+app.get('/main', (req,res)=>{
+    res.sendFile(_dirname+'public/index.html')
+})
+
+now if in the browser we go to public/main, we get our html file.
+
+lets create a script in the public file. we cannot use import or require in this script. but, we can still use fetch.
+
+therefore, to get our products list, we can do a fetch request to the browser where they are stored which is the get getAllProducts browser.
+then, we add to the DOM the json we get back!
+
+now lets look at EJS.
+
+npm install ejs.
+
+now, we can use: app.set('view engine', 'ejs') in the server file.
+
+make a new views folder(created here)
+
+now in the server file, write:
+app.get('/shop/, (req, res)=>{
+    res.render("shop")
+})
+
+now, lets say we have data we want to send. then, we add to the res.render:
+app.get('/shop/, (req, res)=>{
+    res.render("shop", {
+        firstName:'John',
+        lastName: 'Due'
+    })
+})
+
+now, we can access this data using a snippet, written in the ejs file!
+
+next, we can also use other things, such as if else statements.
+
+in the render, write:
+    res.render("shop", {
+        login:true
+    });
+
+all the snipets are in the ejs file.
+
+now, for a loop in ejs, we will write the render like this:
+
+app.get('/shop/', (req, res)=>{
+    let users=[{
+        name: name1,
+        username: aaa
+    },{
+        name: name2,
+        username: bbb
+    }]
+});
+res.render("shop", {
+    users:users
+});
+
+
+now, lets look at partials. inside the views folder, we have the partials folder.
+using the header file, we can include it in all our other ejs files, and always have the links to our browsers, or we can use a navbar
+in all our browsers!
+
+exercise: use ejs to put the products on the shop:
+
+we use the getAllProducts method in the modules.
+
+we make a new method in controllers:
+
+const _getAllProductsEjs= (req, res)=>{
+    getAllProducts().
+    then(data=> {res.render("shop",{data})}).
+    catch(err=>console.log(err);
+    res.status(404).json({msg:"not found"}))
+}
+
+now, we export this to the router, and in the router we add:
+router.get('/shop', _getAllProductsEjs);
