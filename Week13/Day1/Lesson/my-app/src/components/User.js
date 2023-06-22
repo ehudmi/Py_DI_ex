@@ -1,11 +1,11 @@
 const User = (props) => {
-	const { roboname, email, username, id } = props.info;
+	const { name, email, username, id } = props.info;
 	return (
-		<div>
+		<div className="tc bg-light-green br3 pa3 ma2 dib bw2 grow shadow-5">
 			<img src={`https://robohash.org/${id}?size=150x150`} />
-			<h2>Name: {roboname}</h2>
-			<h4>Email: {email}</h4>
-			<p>username: {username}</p>
+			<h4>{name}</h4>
+			<h4>{email}</h4>
+			<p>{username}</p>
 		</div>
 	);
 };
