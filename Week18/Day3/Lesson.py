@@ -15,7 +15,7 @@
 
 # my_list.pop(0) is by index
 
-#my_list.remove("Hello world") is by value
+# my_list.remove("Hello world") is by value
 
 # my_list.index(True)
 
