@@ -9,14 +9,14 @@
 
 # number: 17 - length 6 ➞ [17, 34, 51, 68, 85, 102]
 
-user_number = int(input("Please choose a number "))
-user_length = int(input("Please select a length "))
-counter = 1
-number_list = list()
-while counter < user_length + 1:
-    number_list.append(user_number * counter)
-    counter += 1
-print(f"number: {user_number} - length {user_length} -> {number_list}")
+# user_number = int(input("Please choose a number "))
+# user_length = int(input("Please select a length "))
+# counter = 1
+# number_list = list()
+# while counter < user_length + 1:
+#     number_list.append(user_number * counter)
+#     counter += 1
+# print(f"number: {user_number} - length {user_length} -> {number_list}")
 
 # Challenge 2
 # Write a program that asks a string to the user, and display a new string with any duplicate consecutive letters removed.
@@ -33,7 +33,10 @@ print(f"number: {user_number} - length {user_length} -> {number_list}")
 # Final strings won’t include words with double letters (e.g. “passing”, “lottery”).
 
 user_list = list(input("Please enter a string "))
+end_list = [""]
 for item in user_list:
-    if user_list.count(item) > 1:
-        user_list.remove(item)
-print("".join(user_list))
+    if item == end_list[-1]:
+        continue
+    else:
+        end_list.append(item)
+print("".join(end_list))
