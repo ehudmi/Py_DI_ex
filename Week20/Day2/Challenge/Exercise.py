@@ -31,6 +31,45 @@
 # Bonus: nicely line the text in columns as seen in the example above. Use string formatting.
 
 
+class Farm:
+    def __init__(self, name):
+        self.name = name
+        self.animals = {}
+
+    def add_animal(self, name, quantity=1):
+        if name in self.animals.keys():
+            self.animals.update({name: quantity + 1})
+        else:
+            self.animals.update({name: quantity})
+
+    def get_info(self):
+        output_string = f"{self.name}'s farm\n\n"
+        for k, v in self.animals.items():
+            output_string = output_string + f"{k}:{v}\n"
+        return output_string + "\n\tE-I-E-I-0!"
+
+    def get_animals_type(self):
+        self.animals_sorted = sorted(self.animals)
+
+    def get_short_info(self):
+        self.get_animals_type()
+        output_string = f"{self.name}'s farm has"
+        for item in self.animals_sorted:
+            if item == self.animals_sorted[-1]:
+                output_string = f"{output_string} and {item}"
+            else:
+                output_string = f"{output_string} {item}s,"
+        return output_string
+
+
+macdonald = Farm("McDonald")
+macdonald.add_animal("cow", 5)
+macdonald.add_animal("sheep")
+macdonald.add_animal("sheep")
+macdonald.add_animal("goat", 12)
+print(macdonald.get_info())
+
+
 # Expand The Farm
 # Add a method called get_animal_types to the Farm class. This method should return a sorted list of all the animal
 # types (names) in the farm. With the example above, the list should be: ['cow', 'goat', 'sheep'].
