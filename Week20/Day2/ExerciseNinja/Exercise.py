@@ -19,3 +19,55 @@
 # Create the following methods: show_outgoing_messages(self), show_incoming_messages(self), show_messages_from(self)
 
 # Test your code !!!
+
+
+class Phone:
+    def __init__(self, phone_number):
+        self.phone_number = phone_number
+        self.call_history = []
+        self.messages = []
+
+    def call(self, other_phone):
+        print(f"{self.phone_number} called {other_phone.phone_number}")
+        self.call_history.append(
+            f"{self.phone_number} called {other_phone.phone_number}"
+        )
+
+    def show_call_history(self):
+        print(self.call_history)
+
+    def send_message(self, other_phone, content):
+        self.messages.append(
+            {
+                "to": other_phone.phone_number,
+                "from": self.phone_number,
+                "content": {content},
+            }
+        )
+
+    def show_outgoing_messages(self):
+        for i in range(0, len(self.messages)):
+            print(self.messages[i])
+
+    def show_incoming_messages(self):
+        for i in range(0, len(self.messages)):
+            if self.messages[i]["to"] == self.phone_number:
+                print(self.messages[i])
+
+    def show_messages_from(self):
+        for i in range(0, len(self.messages)):
+            if self.messages[i]["from"] == self.phone_number:
+                print(self.messages[i])
+
+
+my_phone = Phone("058-6242-585")
+my_friend_phone = Phone("054-8344-211")
+my_other_friend = Phone("050-7652-424")
+
+my_phone.call(my_friend_phone)
+my_phone.call(my_other_friend)
+my_friend_phone.call(my_other_friend)
+my_friend_phone.call(my_phone)
+my_other_friend.call(my_phone)
+
+my_phone.show_call_history()
