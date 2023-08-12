@@ -9,12 +9,53 @@
 # withdraw : - (a method) accepts a positive int and deducts from the balance, raise an Exception if not positive
 
 
+class BankAccount:
+    def __init__(self, balance, name, password):
+        self.balance = balance
+        self.username = name
+        self.password = password
+        self.authenticated = False
+
+    def deposit(self, sum):
+        if self.authenticated == True:
+            if sum < 0:
+                raise Exception("The deposited sum is less than 0")
+            else:
+                self.balance += sum
+        else:
+            raise Exception("User not authenticated")
+
+    def withdraw(self, sum):
+        if self.authenticated == True:
+            self.balance -= sum
+            if self.balance < 0:
+                raise Exception("The balance is less than 0")
+        else:
+            raise Exception("User not authenticated")
+
+    def authenticate(self, name, password):
+        if self.username == name and self.password == password:
+            self.authenticated = True
+
+
 # Part II : Minimum balance account
 
 # Create a MinimumBalanceAccount that inherits from BankAccount.
 # Extend the __init__ method and accept a parameter called minimum_balance with a default value of 0.
 # Override the withdraw method so it only allows the user to withdraw money if the balance remains higher than the
 # minimum_balance, raise an Exception if not.
+
+
+class MinimumBalanceAccount(BankAccount):
+    def __init__(self, balance, name, password):
+        super().__init__(balance, name, password)
+        self.minimum_balance = 0
+
+    def withdraw(self, sum):
+        if self.balance - sum > self.minimum_balance:
+            self.balance -= sum
+        else:
+            raise Exception("You can't withdraw. Not enough Funds")
 
 
 # Part III: Expand the bank account class
@@ -33,6 +74,59 @@
 
 
 # Part IV: BONUS Create an ATM class
+
+
+class ATM:
+    def __init__(self, account_list, try_limit):
+        super().__init__()
+        try:
+            isinstance(account_list, (BankAccount, MinimumBalanceAccount))
+            self.account_list = account_list
+        except:
+            print("This is not a valid list")
+        try:
+            if try_limit > 0:
+                self.try_limit = try_limit
+        except:
+            print("The value you input is not positive")
+            self.try_limit = 2
+        self.current_tries = 0
+
+    def show_main_menu(self):
+        self.exit_flag = False
+        while self.exit_flag == False:
+            if input("Please select Login or Exit ") == "login":
+                self.login(
+                    input("Please enter user name "),
+                    input("Please enter password "),
+                )
+            else:
+                self.exit_flag = True
+
+    def login(self, name, password):
+        for item in self.account_list:
+            item.authenticate(name, password)
+            if item.authenticated == True:
+                self.account = item
+                self.show_account_menu(self.account)
+                return
+        self.current_tries += 1
+        if self.current_tries == self.try_limit:
+            print("You have reached maximum attempts. Goodbye!!")
+            self.exit_flag = True
+
+    def show_account_menu(self, account):
+        self.account_exit = False
+        while self.account_exit == False:
+            user_input = input("Please select Deposit or Withdraw or Exit ")
+            if user_input == "exit":
+                self.exit_flag = True
+                self.login(account.username, account.password)
+            elif user_input == "deposit":
+                self.account.deposit(int(input("Please Enter Sum")))
+            elif user_input == "withdraw":
+                self.account.withdraw(int(input("Please Enter Sum")))
+
 
 # __init__:
 # Accepts the following parameters: account_list and try_limit.
@@ -67,3 +161,12 @@
 # show_account_menu:
 # Accepts an instance of BankAccount or MinimumBalanceAccount.
 # The method will start a loop giving the user the option to deposit, withdraw or exit.
+
+account_1 = BankAccount(300, "Ehud", "elric120")
+account_2 = BankAccount(150, "Moshe", "123456")
+account_3 = BankAccount(0, "Haim", "Haim1234")
+account_4 = MinimumBalanceAccount(200, "Jim", "heb362")
+account_5 = MinimumBalanceAccount(400, "Joe", "dana78")
+account_6 = MinimumBalanceAccount(600, "Pete", "my_cat")
+my_atm = ATM([account_1, account_2, account_3, account_4, account_5, account_6], 4)
+my_atm.show_main_menu()
