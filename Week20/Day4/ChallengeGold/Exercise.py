@@ -15,3 +15,26 @@
 # Instantiate a number of Organism and let them mutate until one gets to a DNA which is only made of 1s.
 # Then stop and record the number of generations (iterations) it took.
 # Write your results in you personal biology research notebook and tell us your conclusion :).
+from random import randint
+from random import choices
+
+
+class Gene:
+    def __init__(self, num=randint(0, 1)):
+        self.state = num
+
+    def flip(self):
+        if self.state == 0:
+            self.state = 1
+        else:
+            self.state = 0
+
+
+class Chromosome(Gene):
+    def __init__(self, gene_list, num=randint(0, 1)):
+        super().__init__(num)
+        self.gene_list = gene_list
+
+    def chr_flip(self):
+        self.gene_num = randint(0, 10)
+        # self.gene_list = map()
