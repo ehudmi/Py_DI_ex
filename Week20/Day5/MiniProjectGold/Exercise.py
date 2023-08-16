@@ -15,9 +15,72 @@
 # This class has no methods.
 
 
+class Human:
+    def __init__(self, id_number, name, age, priority, blood_type):
+        self.id_number = id_number
+        self.name = name
+        self.age = age
+        self.priority = priority
+        self.blood_type = blood_type
+        self.family = []
+
+    def add_family_member(self, person):
+        self.family.append(person)
+
+
 # Queue
 # Represents a queue of humans waiting for their vaccine.
 # It has the following attribute : humans, the list containing the humans that are waiting. It is initialized empty.
+
+
+class Queue:
+    def __init__(self, humans=[]):
+        self.humans = humans
+
+    def add_person(self, person):
+        if person.age > 60 or person.priority == True:
+            self.humans.insert(0, person)
+
+    def find_in_queue(self, person):
+        if person in self.humans:
+            return self.humans.index(person)
+
+    def swap(self, person1, person2):
+        if person1 in self.humans and person2 in self.humans:
+            _index_1 = self.humans.index(person1)
+            _index_2 = self.humans.index(person2)
+            self.humans[_index_1], self.humans[_index_2] = (
+                self.humans[_index_2],
+                self.humans[_index_1],
+            )
+        return self.humans
+
+    def get_next(self):
+        match = self.humans[0]
+        self.humans.pop(0)
+        return match
+
+    def get_next_blood_type(self, blood_type):
+        for person in self.humans:
+            if person.blood_type == blood_type:
+                match = person
+                self.humans.remove(person)
+                return match
+
+    def sort_by_age(self):
+        for i in range(0, len(self.humans)):
+            for j in range(0, len(self.humans) - i - 1):
+                if self.humans[j].priority < self.humans[j + 1].priority:
+                    self.humans[j + 1], self.humans[j] = (
+                        self.humans[j],
+                        self.humans[j + 1],
+                    )
+                if self.humans[j].age < self.humans[j + 1].age:
+                    self.humans[j + 1], self.humans[j] = (
+                        self.humans[j],
+                        self.humans[j + 1],
+                    )
+
 
 # This class is useful to manage who will get vaccinated in priority. It has the following methods:
 
