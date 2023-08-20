@@ -15,15 +15,15 @@
 
 # The following code is the basic menu for a restaurant. You can make any changes you want.
 
-{
-    "items": [
-        {"name": "Vegetable soup", "price": 30},
-        {"name": "Hamburger", "price": 44.9},
-        {"name": "Milkshake", "price": 22.5},
-        {"name": "Artichoke", "price": 18},
-        {"name": "Beef stew", "price": 52.5},
-    ]
-}
+# {
+#     "items": [
+#         {"name": "Vegetable soup", "price": 30},
+#         {"name": "Hamburger", "price": 44.9},
+#         {"name": "Milkshake", "price": 22.5},
+#         {"name": "Artichoke", "price": 18},
+#         {"name": "Beef stew", "price": 52.5},
+#     ]
+# }
 
 
 # Create a JSON file called restaurant_menu.json. Paste the menu provided above in the restaurant_menu.json file.
@@ -34,7 +34,8 @@
 # __init__() - The function should read the menu from the restaurant_menu.json file and store it in a variable called
 # menu.
 
-# add_item(name, price) – this method should add an item to the menu, although do not save the changes to the file yet.
+# add_item(name, price) – this method should add an item to the menu, although do not save the changes to the file
+# yet.
 
 # remove_item(name) – if the item is in the menu, this function should remove it from the menu (and again do not save
 # the changes to the file yet) and return True. If the item was not in the menu, return False. (Hint: use Python’s del
@@ -76,16 +77,16 @@
 # Hint: For this exercise, check out the documentation of the Giphy API
 # https://developers.giphy.com/
 
-# You will work with this part of the documention
+# You will work with this part of the documentation
 # https://developers.giphy.com/docs/api/endpoint/#search
 
 # You will use this Gif URL:
 # https://api.giphy.com/v1/gifs/search?q=hilarious&rating=g&api_key=hpvZycW22qCjn5cRM1xtWB8NKq4dQ2My
 # Explanation of the Gif URL
 
-# q Request Paramater: Search query term or phrase. We are searching for “hilarious” gifs
+# q Request Parameter: Search query term or phrase. We are searching for “hilarious” gifs
 
-# rating Request Paramater: Filters results by specified rating. We are searching for Level 1 gifs. Check out the
+# rating Request Parameter: Filters results by specified rating. We are searching for Level 1 gifs. Check out the
 # ratings documentation
 # https://developers.giphy.com/docs/optional-settings/#rating
 
@@ -101,7 +102,7 @@
 
 # Exercise 3 : Giphy API #2
 # Instructions
-# Hint: For this exercise, You will work with this part of the documention
+# Hint: For this exercise, You will work with this part of the documentation
 # https://developers.giphy.com/docs/api/endpoint/#search
 # You will use this API KEY : hpvZycW22qCjn5cRM1xtWB8NKq4dQ2My
 
@@ -111,3 +112,22 @@
 # the day and a message stating that you couldn’t find the requested term or phrase.
 # Note from the documentation : GIPHY Trending returns a list of the most relevant and engaging content each and every
 # day.
+
+import requests
+
+MY_API_KEY = "hpvZycW22qCjn5cRM1xtWB8NKq4dQ2My"
+API_URL = "https://api.giphy.com/v1/gifs/"
+search_term = "hilarious"
+rating = "g"
+limit = 10
+response = requests.get(
+    f"{API_URL}search?q={search_term}&rating={rating}&limit={limit}&api_key={MY_API_KEY}"
+)
+if response.status_code == 200:
+    response_json = response.json()
+    selected = []
+    for i in range(0, len(response_json["data"])):
+        if int(response_json["data"][i]["images"]["original"]["height"]) > 300:
+            selected.append(response_json["data"][i])
+            print(response_json["data"][i]["images"]["original"]["height"])
+    print(len(selected))
