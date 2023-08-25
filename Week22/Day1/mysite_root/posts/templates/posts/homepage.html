@@ -1,0 +1,14 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>
+			{% block title %} {{ page_title|default:"Homepage" }} {% endblock title %}
+		</title>
+	</head>
+	<body>
+		{% block content %}
+		<h1>Hello {{user.first_name}} {{user.last_name}}</h1>
+		<h2>Welcome to my website</h2>
+		{% endblock content %}
+	</body>
+</html>
