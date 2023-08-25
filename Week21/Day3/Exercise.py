@@ -9,41 +9,41 @@
 # Append your first name at the end of the file
 # Append "SkyWalker" next to each first name "Luke"
 
-# with open("C:/Github/Python_Bootcamp/Py_DI_ex/Week21/Day3/names.txt", "r") as f1:
-# for i in f1:
-#     print(i)
-# content = f1.readlines()
-# print(content[4])
-# print(f1.readline(5))
-# content = []
-# for line in f1:
-#     content.append(line[:-1])
-# print(content)
-# darth_counter = 0
-# lea_counter = 0
-# luke_counter = 0
-# for item in content:
-#     if item == "Darth":
-#         darth_counter += 1
-#     elif item == "Luke":
-#         luke_counter += 1
-#     else:
-#         lea_counter += 1
-# print(
-#     f"The name 'Darth' appears {darth_counter} times, 'Luke' appears {luke_counter} times and 'Lea' {lea_counter} times"
-# )
-# f1.write("\nEhud")
-# content = []
-# for line in f1:
-#     if line == "Luke\n":
-#         line = "Luke Skywalker\n"
-#     content.append(line)
-# print(content)
-# with open("C:/Github/Python_Bootcamp/Py_DI_ex/Week21/Day3/names.txt", "w") as f1:
-#     for item in content:
-#         f1.writelines(item)
+with open("C:/Github/Python_Bootcamp/Py_DI_ex/Week21/Day3/names.txt", "r") as f1:
+    for i in f1:
+        print(i)
+content = f1.readlines()
+print(content[4])
+print(f1.readline(5))
+content = []
+for line in f1:
+    content.append(line[:-1])
+print(content)
+darth_counter = 0
+lea_counter = 0
+luke_counter = 0
+for item in content:
+    if item == "Darth":
+        darth_counter += 1
+    elif item == "Luke":
+        luke_counter += 1
+    else:
+        lea_counter += 1
+print(
+    f"The name 'Darth' appears {darth_counter} times, 'Luke' appears {luke_counter} times and 'Lea' {lea_counter} times"
+)
+f1.write("\nEhud")
+content = []
+for line in f1:
+    if line == "Luke\n":
+        line = "Luke Skywalker\n"
+    content.append(line)
+print(content)
+with open("C:/Github/Python_Bootcamp/Py_DI_ex/Week21/Day3/names.txt", "w") as f1:
+    for item in content:
+        f1.writelines(item)
 
-# f1.close()
+f1.close()
 
 # Exercise
 # Create a folder with two files : index.py and file.json. Save this code into the json file
