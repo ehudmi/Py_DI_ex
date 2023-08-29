@@ -3,7 +3,7 @@
 		{%if families%}
 		<ul>
 			{%for family in families%}
-			<li>{{family|title}}</li>
+			<li>{{family.name|title}}</li>
 			{%endfor%}
 		</ul>
 		{%else%}

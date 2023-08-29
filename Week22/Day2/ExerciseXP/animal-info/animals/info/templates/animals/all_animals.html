@@ -3,7 +3,12 @@
 		{%if animals%}
 		<ul>
 			{%for animal in animals%}
-			<li>{{animal|title}}</li>
+			<li>
+				The {{animal.name|title}} has {{animal.legs}} legs
+				<p>it weighs {{animal.weight}} kg and is {{animal.height}} cm high</p>
+				<p>its max speed is {{animal.speed}} km/hr</p>
+				<p>it belongs to the {{animal.family.name}} family</p>
+			</li>
 			{%endfor%}
 		</ul>
 		{%else%}
