@@ -1,0 +1,13 @@
+<html>
+	<body>
+		{%if animals%}
+		<ul>
+			{%for animal in animals%}
+			<li>The {{animal.name}}'s' speed is {{animal.speed}} km/hr</li>
+			{%endfor%}
+		</ul>
+		{%else%}
+		<h3>No animals found</h3>
+		{%endif%}
+	</body>
+</html>
