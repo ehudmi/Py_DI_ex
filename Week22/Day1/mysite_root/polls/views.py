@@ -1,16 +1,25 @@
 from django.shortcuts import render  # this line is added automatically
-from django.http import HttpResponse  # pass view information into the browser
-
 
 # takes a request, returns a response
+user = {"first_name": "John", "last_name": "Doe"}
+
+
+# index function renders homepage.html template
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    context = {
+        "page_title": "Homepage",
+        "user": user,
+    }
+    return render(request, "posts/homepage.html", context)
 
 
-def about(request):
-    return HttpResponse("<h1> Welcome Users<h1>")
+# posts function renders posts.html template
+def posts(request):
+    subjects = [
+        {"title": "How to setup Django", "author": "Maria"},
+        {"title": "How to cake an amazing pie", "author": "Chef Mark"},
+    ]
 
+    context = {"page_title": "Posts", "user": user, "subjects": subjects}
 
-# def about(request):
-#     context = get_data(...) # fetch the data you need
-#     return render(request, "myapp/template/about.html", context)
+    return render(request, "posts/posts.html", context)
