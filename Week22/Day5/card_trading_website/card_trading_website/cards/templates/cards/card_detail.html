@@ -1,0 +1,31 @@
+{% extends 'base.html' %}{% load static %} {% block title %}{% if card %}{{card.character_name}}
+Details{% else %}OOPS{%endif%}{% endblock title %} {%if card %}
+<div>
+	{% block content %}
+	<div class="card" style="width: 300px">
+		{% if card.image_url %}
+		<img class="card-img-top" src="{{card.image_url}}" alt="Card image" />
+		{% else %}
+		<img class="card-img-top" src="{% static 'user_image.jpeg' %}" alt="Card image" />
+		{% endif %}
+		<div class="card-body align-self-center text-center">
+			<h2 class="card-title">{{card.name_character}}</h2>
+			<p class="card-text">House: {{card.house}}</p>
+			<p class="card-text">Date of Birth: {{card.date_of_birth}}</p>
+			<p class="card-text">Species: {{card.species}}</p>
+			<p class="card-text">Patronus: {{card.patronus}}</p>
+			<p class="card-text">Price of Card: {{card.price}}</p>
+			<p class="card-text">XP Points of Card: {{card.xp_points}}</p>
+			<p class="card-text">Current Card Owner: {{card.current_owner}}</p>
+			<p class="card-text">Previous Card Owner: {{card.previous_owner}}</p>
+			<div class="card-footer d-flex justify-content-around">
+				<a href={%url 'buy-card' card.pk "1"%} class="btn btn-primary">Buy Card</a>
+				<a href={%url 'sell-card' card.pk "1"%} class="btn btn-primary">Sell Card</a>	
+			</div>
+		</div>
+	</div>
+	{% endblock content %}
+</div>
+{% else %}
+<h1>Couldn't find the card</h1>
+{% endif %}

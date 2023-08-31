@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{% block title %}Default{% endblock title %}</title>
+		{% load bootstrap5 %} {% bootstrap_css %} {% bootstrap_javascript %}
+	</head>
+	<body>
+		<div class="container">
+			<ul class="nav bg-info">
+				<li class="nav-item">
+					<a class="nav-link link-light" href={%url 'user-profile' "1"%}>My profile</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link link-light" href={%url 'homepage'%}
+						>Available Cards</a
+					>
+				</li>
+			</ul>
+
+			{% block content %} {% endblock content%}
+		</div>
+	</body>
+</html>
