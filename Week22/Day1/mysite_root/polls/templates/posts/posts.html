@@ -1,11 +1,11 @@
 {% extends 'posts/homepage.html' %} {% block title %} {{
-page_title|default:"Homepage" }} {% endblock title %} {% block content %} {#
-It's a comment #} {{ block.super }} {# get the content of the block from the
-parent template #}
+page_title|default:"Homepage" }} {% endblock title %} {% block content %} {{
+block.super }}
 <h4>Today we are going to talk about</h4>
-<ul>
-	{% for x in subjects %}
-	<li>{{ x.title | title }} by {{ x.author}}</li>
-	{% endfor %}
-</ul>
-{% endblock content %}
+{% for x in posts %}
+<h3>
+	{{ x.title | title }} by {{ x.author}}
+	<span>{{ x.released_date | date:"D M Y" }}</span>
+</h3>
+<div>{{ x.text }}</div>
+{% endfor %} {% endblock content %}

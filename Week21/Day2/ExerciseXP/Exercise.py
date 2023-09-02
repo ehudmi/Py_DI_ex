@@ -28,10 +28,10 @@ class Currency:
             else:
                 num2 = num2.amount
         print(self.amount + num2)
-        return
+        return Currency(self.currency, self.amount + num2)
 
     def __call__(self):
-        print(self.amount)
+        print(f"{self.amount} {self.currency}s")
         return self.amount
 
     # def __name__(self):
@@ -61,7 +61,7 @@ c4 = Currency("shekel", 10)
 # c1 + c2
 # 15
 
-# c1()
+c1()
 # 5 dollars
 
 # >>> c1 += 5

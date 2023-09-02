@@ -1,0 +1,12 @@
+{% if formInfo %}
+<div>
+	<h2>Title: {{title}}</h2>
+	<h3>Details: {{details}}</h3>
+	<h4>is done: {{has_been_done}}</h4>
+	<h4>Date of Creation: {{date_creation}}</h4>
+	<h4>Date of Completion: {{date_completion}}</h4>
+	<h4>Due Date: {{deadline_date}}</h4>
+</div>
+{% else %}
+<h1>Couldn't find data</h1>
+{% endif %}
