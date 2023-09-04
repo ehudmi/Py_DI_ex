@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import requests
 import json
+from random import randint
 
 with open("config/_env_var.json") as file:
     data = json.load(file)
@@ -25,8 +26,8 @@ def get_figure(request):
     figure_json = response.json()
     context = {"figures": []}
     for figure in figure_json:
-        print(figure)
-        # if figure["info"]["occupation"]:
+        # print(figure)
+
         context["figures"].append(
             {
                 "name": figure["name"],
@@ -34,8 +35,30 @@ def get_figure(request):
                 "occupation": figure["info"].get("occupation", ""),
             }
         )
-        # else:
-        #     context["figures"].append(
-        #         {"name": figure["name"], "title": figure["title"], "occupation": ""}
-        #     )
+
     return render(request, "fight/figures.html", context)
+
+
+def get_image(request):
+    url = "https://bing-image-search1.p.rapidapi.com/images/search"
+
+    querystring = {"q": "william shakespeare"}
+
+    headers = {
+        "X-RapidAPI-Key": API_KEY,
+        "X-RapidAPI-Host": "bing-image-search1.p.rapidapi.com",
+    }
+
+    response = requests.get(url, headers=headers, params=querystring)
+
+    image_json = response.json()
+    context = {"images": []}
+    for image in image_json["value"]:
+        context["images"].append(
+            {
+                "name": image["name"],
+                "thumbnail": image["thumbnailUrl"],
+                "image_url": image["contentUrl"],
+            }
+        )
+    return render(request, "fight/images.html", context)

@@ -1,15 +1,15 @@
-<html>
-	<body>
-		{% if figures %}
-		<div>
-			{% for figure in figures %}
-			<h1>{{figure.name}}</h1>
-			<h1>{{figure.title}}</h1>
-			<h1>{{figure.occupation}}</h1>
-			{% endfor %}
-		</div>
-		{% else %}
-		<h1>No figures</h1>
-		{% endif %}
-	</body>
-</html>
+{% extends 'fight/_base.html' %} {% block content %}
+<div>
+  {% if figures %}
+  <div>
+    {% for figure in figures %}
+    <h1>{{figure.name}}</h1>
+    <h1>{{figure.title}}</h1>
+    <h1>{{figure.occupation}}</h1>
+    {% endfor %}
+  </div>
+  {% else %}
+  <h1>No figures</h1>
+  {% endif %}
+</div>
+{% endblock content %}
