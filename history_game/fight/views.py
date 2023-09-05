@@ -3,6 +3,8 @@ import requests
 import json
 from random import randint
 
+from .models import User, Figure
+
 with open("config/_env_var.json") as file:
     data = json.load(file)
 API_KEY = data["MY_API_KEY"]
