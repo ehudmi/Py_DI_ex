@@ -5,7 +5,7 @@ from .models import User, Figure
 class Signup(forms.ModelForm):
     class Meta:
         model = User
-        fields = "__all__"
+        fields = ["name", "email"]
 
 
 class Figures(forms.ModelForm):
