@@ -1,0 +1,18 @@
+{% extends '_base.html' %} {% block content %}
+<div>
+  {% if images %}
+  <div>
+    {% for image in images %}
+    <h1>{{image.name}}</h1>
+    <img src="{{image.thumbnail}}" alt="" />
+    {% comment %}
+    <h1>{{image.thumbnail}}</h1>
+    {% endcomment %}
+    <h1>{{image.image_url}}</h1>
+    {% endfor %}
+  </div>
+  {% else %}
+  <h1>No images</h1>
+  {% endif %}
+</div>
+{% endblock content %}
