@@ -5,7 +5,7 @@ from django.db import models
 class Figure(models.Model):
     name = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
-    occupation = models.CharField(max_length=100)
+    occupation = models.CharField(max_length=100, null=True)
     image_url = models.URLField()
 
 

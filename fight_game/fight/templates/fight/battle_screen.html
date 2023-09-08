@@ -1,0 +1,11 @@
+{% extends '_base.html' %}{% block title %}{{page_title}}{% endblock title %}
+<div>
+	{% block content %}
+	<div>
+		<h1>{{figure.name}}</h1>
+		<h3>{{figure.title}}</h3>
+		<h3>{{figure.occupation}}</h3>
+		<img src="{{figure.image_url}}" alt="" />
+	</div>
+	{% endblock content %}
+</div>

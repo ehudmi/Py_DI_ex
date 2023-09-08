@@ -1,15 +1,22 @@
 {% extends '_base.html' %} {% block content %}
 <div>
-  {% if figures %}
-  <div>
-    {% for figure in figures %}
-    <h1>{{figure.name}}</h1>
-    <h1>{{figure.title}}</h1>
-    <h1>{{figure.occupation}}</h1>
-    {% endfor %}
-  </div>
-  {% else %}
-  <h1>No figures</h1>
-  {% endif %}
+	{% if figures %}
+	<div>
+		{% for figure in figures %}
+		<h1>{{figure.name}}</h1>
+		<h3>{{figure.title}}</h3>
+		<h3>{{figure.occupation}}</h3>
+		<form action="{%url 'select-figure'%}" method="POST">
+			{% csrf_token %}
+			<input name="name" type="hidden" value="{{figure.name}}" />
+			<input name="title" type="hidden" value="{{figure.title}}" />
+			<input name="occupation" type="hidden" value="{{figure.occupation}}" />
+			<button type="submit">Select</button>
+		</form>
+		{% endfor %}
+	</div>
+	{% else %}
+	<h1>No figures</h1>
+	{% endif %}
 </div>
 {% endblock content %}

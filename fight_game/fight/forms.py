@@ -15,6 +15,11 @@ class CustomUserChangeForm(UserChangeForm):
         fields = ("username", "email")
 
 
+class SearchFigure(forms.Form):
+    name = forms.CharField(max_length=100, required=False)
+    occupation = forms.CharField(max_length=100, required=False)
+
+
 class Figures(forms.ModelForm):
     class Meta:
         model = Figure

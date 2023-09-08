@@ -5,7 +5,7 @@ import requests
 import json
 from random import randint
 
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, SearchFigure
 from .models import FightUser, Figure
 
 with open("config/_env_var.json") as file:
@@ -19,10 +19,10 @@ class SignUpView(CreateView):
     template_name = "registration/signup.html"
 
 
-def get_figure(request):
+def get_figure(request, value, offset):
     url = "https://historical-figures-by-api-ninjas.p.rapidapi.com/v1/historicalfigures"
 
-    querystring = {"name": "painter"}
+    querystring = {"name": value, "offset": offset}
 
     headers = {
         "X-RapidAPI-Key": API_KEY,
@@ -46,10 +46,10 @@ def get_figure(request):
     return render(request, "fight/figures.html", context)
 
 
-def get_image(request):
+def get_image(request, name, id):
     url = "https://bing-image-search1.p.rapidapi.com/images/search"
 
-    querystring = {"q": "william shakespeare"}
+    querystring = {"q": name}
 
     headers = {
         "X-RapidAPI-Key": API_KEY,
@@ -63,9 +63,61 @@ def get_image(request):
     for image in image_json["value"]:
         context["images"].append(
             {
+                "id": id,
                 "name": image["name"],
                 "thumbnail": image["thumbnailUrl"],
                 "image_url": image["contentUrl"],
             }
         )
     return render(request, "fight/images.html", context)
+
+
+def search_figure(request):
+    context = {}
+    context["page_title"] = "Search for Figure"
+    if request.method == "POST":
+        form = SearchFigure(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data["name"]
+            occupation = form.cleaned_data["occupation"]
+            print(name, occupation)
+            context["form"] = {"name": name, "occupation": occupation}
+            if occupation == "":
+                return get_figure(request, name, 0)
+            else:
+                return get_figure(request, f"{name} ({occupation})", randint(0, 10))
+
+        return render(request, "fight/search_figure.html", context)
+    else:
+        form = SearchFigure()
+        context["form"] = form
+    return render(request, "fight/search_figure.html", context)
+
+
+def select_figure(request):
+    context = {}
+    context["page_title"] = "Select the Figure"
+    if request.method == "POST":
+        if (
+            request.POST.get("name")
+            != Figure.objects.filter(name=request.POST.get("name")).first()
+        ):
+            figure = Figure.objects.create(
+                name=request.POST.get("name"),
+                title=request.POST.get("title"),
+                occupation=request.GET.get("occupation"),
+            )
+            return get_image(request, request.POST.get("name"), figure.pk)
+        else:
+            figure = Figure.objects.filter(name=request.POST.get("name")).first()
+            context["figure"] = figure
+            return render(request, "fight/battle_screen.html", context)
+
+
+def select_image(request):
+    context = {}
+    if request.method == "POST":
+        figure = Figure.objects.filter(id=request.POST.get("id"))
+        figure.update(image_url=request.POST.get("image_url"))
+        context["figure"] = figure
+        return render(request, "fight/battle_screen.html", context)
