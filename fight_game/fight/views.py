@@ -97,11 +97,6 @@ def select_figure(request):
     context = {}
     context["page_title"] = "Select the Figure"
     if request.method == "POST":
-        exist = Figure.objects.filter(name=request.POST.get("name")).first()
-        print(
-            request.POST.get("name"),
-            exist.name,
-        )
         if (
             request.POST.get("name")
             != Figure.objects.filter(name=request.POST.get("name")).first().name
