@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 import requests
@@ -80,7 +80,6 @@ def search_figure(request):
         if form.is_valid():
             name = form.cleaned_data["name"]
             occupation = form.cleaned_data["occupation"]
-            print(name, occupation)
             context["form"] = {"name": name, "occupation": occupation}
             if occupation == "":
                 return get_figure(request, name, 0)
@@ -98,9 +97,14 @@ def select_figure(request):
     context = {}
     context["page_title"] = "Select the Figure"
     if request.method == "POST":
+        exist = Figure.objects.filter(name=request.POST.get("name")).first()
+        print(
+            request.POST.get("name"),
+            exist.name,
+        )
         if (
             request.POST.get("name")
-            != Figure.objects.filter(name=request.POST.get("name")).first()
+            != Figure.objects.filter(name=request.POST.get("name")).first().name
         ):
             figure = Figure.objects.create(
                 name=request.POST.get("name"),
@@ -120,4 +124,15 @@ def select_image(request):
         figure = Figure.objects.filter(id=request.POST.get("id"))
         figure.update(image_url=request.POST.get("image_url"))
         context["figure"] = figure
-        return render(request, "fight/battle_screen.html", context)
+        # create_opponent()
+
+    return render(request, "fight/battle_screen.html", context)
+
+
+def user_figure(request):
+    context = {}
+    context["page_title"] = "Your selected Figure"
+
+
+def create_opponent():
+    pass

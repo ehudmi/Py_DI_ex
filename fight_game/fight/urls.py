@@ -13,5 +13,5 @@ urlpatterns = [
         views.select_image,
         name="select-image",
     ),
-    # path("battle_screen/",views.)
+    # path("battle/",views.)
 ]
