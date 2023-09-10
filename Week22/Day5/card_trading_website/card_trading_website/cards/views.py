@@ -30,8 +30,8 @@ def buy_one_card(request, card_id, user_id):
             card.current_owner = user
             user.amount_of_money -= card.price
             user.points += card.xp_points
-        user.save()
-        card.save()
+            user.save()
+            card.save()
     return redirect("homepage")
 
 
