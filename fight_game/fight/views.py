@@ -97,10 +97,8 @@ def select_figure(request):
     context = {}
     context["page_title"] = "Select the Figure"
     if request.method == "POST":
-        if (
-            request.POST.get("name")
-            != Figure.objects.filter(name=request.POST.get("name")).first().name
-        ):
+        figure = Figure.objects.filter(name=request.POST.get("name")).first()
+        if figure is None:
             figure = Figure.objects.create(
                 name=request.POST.get("name"),
                 title=request.POST.get("title"),
@@ -108,17 +106,20 @@ def select_figure(request):
             )
             return get_image(request, request.POST.get("name"), figure.pk)
         else:
-            figure = Figure.objects.filter(name=request.POST.get("name")).first()
-            context["figure"] = figure
-            return render(request, "fight/battle_screen.html", context)
+            if figure.image_url == "":
+                return get_image(request, figure.name, figure.pk)
+            else:
+                context["figure"] = figure
+                return render(request, "fight/battle_screen.html", context)
 
 
 def select_image(request):
     context = {}
     if request.method == "POST":
-        figure = Figure.objects.filter(id=request.POST.get("id"))
-        figure.update(image_url=request.POST.get("image_url"))
+        figure = Figure.objects.filter(id=request.POST.get("id")).first()
+        figure.image_url = request.POST.get("image_url")
         context["figure"] = figure
+        figure.save()
         # create_opponent()
 
     return render(request, "fight/battle_screen.html", context)
