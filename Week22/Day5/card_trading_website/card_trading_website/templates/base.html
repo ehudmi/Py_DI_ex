@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %}{% load my_filters %}
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -11,15 +11,29 @@
 		<div class="container">
 			<ul class="nav bg-info">
 				<li class="nav-item">
-					<a class="nav-link link-light" href={%url 'user-profile' "1"%}>My profile</a>
+					{% comment %} <a class="nav-link link-light" href={%url 'user-profile' "1"%}>My profile</a> {% endcomment %}
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						  Select Profile
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+							{% for i in 11|times %}
+							<li><a class="dropdown-item" href={%url 'user-profile' i%}>User {{i}}</a></li>
+							{% endfor %}
+						</ul>
+					  </li>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link link-light" href={%url 'homepage'%}
+					<a class="nav-link link-light" href={%url 'cards' "1"%}
 						>Available Cards</a
 					>
 				</li>
+				<li class="nav-item">
+					<a class="nav-link link-light" href={%url 'leader-board'%}
+						>Leader Board</a
+					>
+				</li>
 			</ul>
-
 			{% block content %} {% endblock content%}
 		</div>
 	</body>

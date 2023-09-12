@@ -15,7 +15,7 @@
 		<div class="card-body">
 			<h5 class="card-title text-center">{{card.name_character}}</h5>		
 		</div>
-		<div class="card-footer"><a href={%url 'card-detail' card.pk %} class="btn btn-primary" 
+		<div class="card-footer"><a href={%url 'card-detail' card.pk user.pk %} class="btn btn-primary" 
 			style="width:100%">See Details</a>
 		</div>
 	</div>

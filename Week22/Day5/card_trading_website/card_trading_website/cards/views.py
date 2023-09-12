@@ -2,13 +2,19 @@ from django.shortcuts import render, redirect
 from .models import User, Card
 
 
-def display_all_cards(request):
-    context = {"cards": Card.objects.filter(current_owner_id=None)}
+def display_all_cards(request, user_id):
+    context = {
+        "cards": Card.objects.filter(current_owner_id=None),
+        "user": User.objects.filter(id=user_id).first(),
+    }
     return render(request, "cards/cards.html", context)
 
 
-def display_one_card(request, card_id):
-    context = {"card": Card.objects.filter(id=card_id).first()}
+def display_one_card(request, card_id, user_id):
+    context = {
+        "card": Card.objects.filter(id=card_id).first(),
+        "user": User.objects.filter(id=user_id).first(),
+    }
     return render(request, "cards/card_detail.html", context)
 
 
@@ -32,7 +38,7 @@ def buy_one_card(request, card_id, user_id):
             user.points += card.xp_points
             user.save()
             card.save()
-    return redirect("homepage")
+    return redirect("cards")
 
 
 def sell_one_card(request, card_id, user_id):
@@ -45,4 +51,12 @@ def sell_one_card(request, card_id, user_id):
         user.points -= card.xp_points
         user.save()
         card.save()
-    return redirect("homepage")
+    return redirect("cards")
+
+
+def leader_board(request):
+    cards = Card.objects.exclude(current_owner__isnull=True)
+    print(cards[0].name_character)
+    users = User.objects.all().order_by("-points")
+    context = {"cards": cards, "users": users}
+    return render(request, "users/leader_board.html", context)

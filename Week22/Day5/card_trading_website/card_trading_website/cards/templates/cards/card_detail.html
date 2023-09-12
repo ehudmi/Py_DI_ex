@@ -19,8 +19,8 @@ Details{% else %}OOPS{%endif%}{% endblock title %} {%if card %}
 			<p class="card-text">Current Card Owner: {{card.current_owner}}</p>
 			<p class="card-text">Previous Card Owner: {{card.previous_owner}}</p>
 			<div class="card-footer d-flex justify-content-around">
-				<a href={%url 'buy-card' card.pk "1"%} class="btn btn-primary">Buy Card</a>
-				<a href={%url 'sell-card' card.pk "1"%} class="btn btn-primary">Sell Card</a>	
+				<a href={%url 'buy-card' card.pk user.pk%} class="btn btn-primary">Buy Card</a>
+				<a href={%url 'sell-card' card.pk user.pk%} class="btn btn-primary">Sell Card</a>	
 			</div>
 		</div>
 	</div>
