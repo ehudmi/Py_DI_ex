@@ -1,0 +1,12 @@
+<html>
+	<body>
+		{% if person %}
+		<h2>The person with number {{person.phone}}</h2>
+		<h2>is {{person.name|title}}</h2>
+		<h2>email: {{person.email}}</h2>
+		<h2>address: {{person.address}}</h2>
+		{% else %}
+		<h3>No person with that number found</h3>
+		{% endif %}
+	</body>
+</html>
