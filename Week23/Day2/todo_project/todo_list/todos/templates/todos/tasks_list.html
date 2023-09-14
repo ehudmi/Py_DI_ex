@@ -1,12 +1,37 @@
-{% if formInfo %}
-<div>
-	<h2>Title: {{title}}</h2>
-	<h3>Details: {{details}}</h3>
-	<h4>is done: {{has_been_done}}</h4>
-	<h4>Date of Creation: {{date_creation}}</h4>
-	<h4>Date of Completion: {{date_completion}}</h4>
-	<h4>Due Date: {{deadline_date}}</h4>
-</div>
-{% else %}
-<h1>Couldn't find data</h1>
-{% endif %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>To Do App</title>
+	</head>
+	<body>
+		<form action="" method="post">
+			{% csrf_token %}{{form.as_p}}<input type="submit" value="Add To-Do" />
+		</form>
+		{% if todos %}
+		<div>
+			<table>
+				<tr>
+					<th>Title</th>
+					<th>Details</th>
+					<th>Date of Creation</th>
+					<th>Date of Completion</th>
+					<th>Due Date</th>
+					<th>Is done</th>
+				</tr>
+				{% for todo in todos %}
+				<tr>
+					<td>{{todo.title}}</td>
+					<td>{{todo.details}}</td>
+					<td>{{todo.date_creation}}</td>
+					<td>{{todo.date_completion}}</td>
+					<td>{{todo.deadline_date}}</td>
+					<td>{{todo.has_been_done}}</td>
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+		{% endif %}
+	</body>
+</html>
