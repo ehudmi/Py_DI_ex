@@ -1,0 +1,25 @@
+<h1>list of tasks for category:{{category}}</h1>
+{% if todos %}
+<div>
+	<table>
+		<tr>
+			<th>Title</th>
+			<th>Details</th>
+			<th>Date of Creation</th>
+			<th>Date of Completion</th>
+			<th>Due Date</th>
+			<th>Is done</th>
+		</tr>
+		{% for todo in todos %}
+		<tr>
+			<td>{{todo.title}}</td>
+			<td>{{todo.details}}</td>
+			<td>{{todo.date_creation|date:"d/m/Y"}}</td>
+			<td>{{todo.date_completion|date:"d/m/Y"}}</td>
+			<td>{{todo.deadline_date|date:"d/m/Y"}}</td>
+			<td>{{todo.has_been_done}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+</div>
+{% endif %}
