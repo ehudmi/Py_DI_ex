@@ -117,9 +117,10 @@ def select_image(request):
     context = {}
     if request.method == "POST":
         figure = Figure.objects.filter(id=request.POST.get("id")).first()
-        figure.image_url = request.POST.get("image_url")
-        context["figure"] = figure
-        figure.save()
+        if figure is not None:
+            figure.image_url = request.POST.get("image_url")
+            context["figure"] = figure
+            figure.save()
         # create_opponent()
 
     return render(request, "fight/battle_screen.html", context)

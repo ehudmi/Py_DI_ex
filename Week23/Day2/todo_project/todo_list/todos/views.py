@@ -5,7 +5,8 @@ from .models import Todo
 
 
 def add_todo(request):
-    context = {"todos": Todo.objects.all()}
+    context = {}
+    context["todos"] = Todo.objects.all()
     if request.method == "POST":
         form = ToDoForm(request.POST)
         if form.is_valid():
