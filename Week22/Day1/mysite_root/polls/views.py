@@ -11,10 +11,8 @@ def index(request):
 
 
 def posts(request):
-    context = {
-        "page_title": "Posts",
-        "posts": Post.objects.filter(
-            author__first_name=person.first_name, author__last_name=person.last_name
-        ),
-    }
+    posts = Post.objects.filter(
+        author__first_name=person.first_name, author__last_name=person.last_name
+    )
+    context = {"page_title": "Posts", "posts": posts}
     return render(request, "posts/posts.html", context)
