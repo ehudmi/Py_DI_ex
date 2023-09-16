@@ -14,4 +14,5 @@ class Gif(models.Model):
     url = models.URLField()
     uploader_name = models.CharField()
     created_at = models.DateTimeField(default=timezone.now)
-    categories = models.ManyToManyField(Category)
+    categories = models.ManyToManyField(Category, related_name="gifs")
+    likes = models.IntegerField(default=0)

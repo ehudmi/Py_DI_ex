@@ -1,23 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Gif Display Page</title>
-	</head>
-	<body>
-		<div>
-			<form action="" method="POST">
-				{% csrf_token %}{{form}}
-				<input type="submit" value="Search" />
-			</form>
-		</div>
+{% extends "base.html" %}{% load static %}
+<head>
+	{% block title %}Homepage{% endblock title %}
+</head>
+<div>
+	{% block content %}
+	<div>
+		<form action="" method="POST">
+			{% csrf_token %}{{form}}
+			<input type="submit" value="Search" />
+		</form>
+	</div>
+	<div>
 		{% for gif in gifs %}
 		<h2>{{gif.title}}</h2>
-		<img src="{{gif.url}}" alt="gif" />
+		<a href="{{gif.url}}"><img src="{{gif.url}}" alt="gif" /></a>
 		<p>Uploaded by {{gif.uploader_name}}</p>
 		<p>Created {{gif.created_at|date:"d/m/Y"}}</p>
 		<p>{{gif.categories.all|join:", "}}</p>
+		<p>Likes: {{gif.likes}}</p>
+		<div>
+			<a href="{% url 'like-add' gif.pk 1 %}"
+				><img src={% static "up.png" %} alt="button"
+				style="width:30px;height:30px"/></a
+			>
+
+			<a href="{% url 'like-add' gif.pk 0 %}"
+				><img src={% static "down.png" %} alt="button"
+				style="width:30px;height:30px"/></a
+			>
+		</div>
 		{% endfor %}
-	</body>
-</html>
+	</div>
+	{% endblock content %}
+</div>
