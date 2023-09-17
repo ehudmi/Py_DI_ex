@@ -27,7 +27,7 @@ def todo_done(request, todo_id):
 
 
 def show_by_category(request, category_name):
-    todos = Todo.objects.filter(category__name="shopping")
+    todos = Todo.objects.filter(category__name=category_name)
     print(todos[0])
     # todos = get_object_or_404(Todo, category__name=category_name)
     context = {"category": category_name, "todos": todos}
