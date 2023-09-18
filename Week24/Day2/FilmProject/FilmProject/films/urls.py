@@ -27,4 +27,9 @@ urlpatterns = [
         views.DirectorUpdateView.as_view(),
         name="edit-director",
     ),
+    path(
+        "review/addReview/",
+        views.ReviewCreateView.as_view(),
+        name="add-review",
+    ),
 ]

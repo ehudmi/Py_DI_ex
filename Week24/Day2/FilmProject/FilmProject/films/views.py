@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from .models import Film, Director
-from .forms import FilmForm, DirectorForm
+from .forms import FilmForm, DirectorForm, ReviewForm
 from django.views.generic import ListView, CreateView, UpdateView
 
 
@@ -34,4 +34,10 @@ class DirectorUpdateView(UpdateView):
     model = Director
     form_class = DirectorForm
     template_name = "director/editDirector.html"
+    success_url = reverse_lazy("homepage")
+
+
+class ReviewCreateView(CreateView):
+    form_class = ReviewForm
+    template_name = "review/addReview.html"
     success_url = reverse_lazy("homepage")
