@@ -1,0 +1,14 @@
+Hi, I went over your hackathon there are no special comments that I can add, it was really good for a short hackathon just I would extract all the managment of fetching the data from the api at different module you can give it the name api or any other meaningful name.
+we can add some imporvments that the code will look better for example for this code:
+if figure.image_url == "":
+    return get_image(request, figure.name, figure.pk)
+else:
+    context["figure"] = figure
+    return render(request, "fight/battle_screen.html", context)
+the else is redundant because you do return before it then it can be like this:
+r this code:
+if figure.image_url == "":
+    return get_image(request, figure.name, figure.pk)
+
+context["figure"] = figure
+return render(request, "fight/battle_screen.html", context)
