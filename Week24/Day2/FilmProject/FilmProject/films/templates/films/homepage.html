@@ -4,13 +4,17 @@
     {% include "partials/navbar.html" %}
     {% if user.is_authenticated %}
         <h1>{{ user.username }}</h1>
-        <div class="row row-cols-1 row-cols-md-4 g-4">
+        <div class="row row-cols-1 row-cols-md-6 g-4">
             {% for film in films %}
                 <div class="col">
                     <div class="card h-100 text-center">
-                        <img src="{% static "film.png" %}"
-                             class="card-img-top w-50 mx-auto"
-                             alt="image" />
+                        {% if film.poster.image %}
+                            <img src={{ film.poster.image.url }} class="card-img-top w-50 mx-auto" alt="{{ film.poster.explanation_img }}">
+                        {% else %}
+                            <img src="{% static "film.jpg" %}"
+                                 class="card-img-top w-50 mx-auto"
+                                 alt="image">
+                        {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">
                                 {{ film.title }} <a href="{% url 'edit-film' film.id %}">Edit Film</a>

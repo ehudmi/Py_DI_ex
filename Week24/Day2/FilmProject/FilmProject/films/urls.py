@@ -9,7 +9,7 @@ urlpatterns = [
     ),
     path(
         "films/addFilm",
-        views.FilmCreateView.as_view(),
+        views.film_add,
         name="add-film",
     ),
     path(
@@ -32,4 +32,5 @@ urlpatterns = [
         views.ReviewCreateView.as_view(),
         name="add-review",
     ),
+    path("poster/addPoster/", views.PosterCreateView.as_view(), name="add-poster"),
 ]

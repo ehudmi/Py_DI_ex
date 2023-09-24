@@ -1,17 +1,9 @@
-# from django.views.generic import CreateView, DetailView
-from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
-
-# from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.models import User
 from .forms import SignUpForm, LoginForm
 
 
-# class SignupView(CreateView):
-#     form_class = SignUpForm
-#     success_url = reverse_lazy("login")
-#     template_name = "accounts/register.html"
 def signup_view(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
@@ -30,9 +22,6 @@ def signup_view(request):
     return render(request, "accounts/register.html", context)
 
 
-# class UserLoginView(LoginView):
-#     form_class = LoginForm
-#     template_name = "accounts/login.html"
 def log_in_view(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
