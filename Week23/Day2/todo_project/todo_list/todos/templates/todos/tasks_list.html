@@ -1,57 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>To Do App</title>
-	</head>
-	<body>
-		<form action="" method="post">
-			{% csrf_token %}{{form.as_p}}<input type="submit" value="Add To-Do" />
-		</form>
-		{% if todos %}
-		<div>
-			<table>
-				<tr>
-					<th>Title</th>
-					<th>Details</th>
-					<th>Date of Creation</th>
-					<th>Date of Completion</th>
-					<th>Due Date</th>
-					<th>Is done</th>
-					<th></th>
-				</tr>
-				{% for todo in todos %}
-				<tr>
-					<td>{{todo.title}}</td>
-					<td>{{todo.details}}</td>
-					<td>{{todo.date_creation|date:"d/m/Y"}}</td>
-					<td>{{todo.date_completion|date:"d/m/Y"}}</td>
-					<td>{{todo.deadline_date|date:"d/m/Y"}}</td>
-					<td>{{todo.has_been_done}}</td>
-					<td>
-						<button><a href={% url "todo-done" todo.id %}>Done</button>
-					</td>
-				</tr>
-				{% endfor %}
-			</table>
-		</div>
-		{% endif %}
-		<table>
-			<tr>
-				<th>UNCOMPLETED TODOS</th>
-				<th>COMPLETED TODOS</th>
-			</tr>
-			{% for todo in todos %}
-			<tr>
-				{% if todo.has_been_done %}
-				<th></th>
-				<th>{{todo.title}}</th>
-				{% else %}
-				<th>{{todo.title}}</th>
-				{% endif %}
-			</tr>
-			{% endfor %}
-		</table>
-	</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>To Do App</title>
+    </head>
+    <body>
+        <form action="" method="post">
+            {% csrf_token %}{{ form.as_p }}
+            <input type="submit" value="Add To-Do" />
+        </form>
+        {% if todos %}
+            <div>
+                <table>
+                    <tr>
+                        <th>Title</th>
+                        <th>Details</th>
+                        <th>Date of Creation</th>
+                        <th>Date of Completion</th>
+                        <th>Due Date</th>
+                        <th>Is done</th>
+                        <th></th>
+                    </tr>
+                    {% for todo in todos %}
+                        <tr>
+                            <td>{{ todo.title }}</td>
+                            <td>{{ todo.details }}</td>
+                            <td>{{ todo.date_creation|date:"d/m/Y" }}</td>
+                            <td>{{ todo.date_completion|date:"d/m/Y" }}</td>
+                            <td>{{ todo.deadline_date|date:"d/m/Y" }}</td>
+                            <td>{{ todo.has_been_done }}</td>
+                            <td>
+                                <button>
+                                    <a href={% url "todo-done" todo.id %}>Done</a>
+                                </button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% endif %}
+        <table>
+            <tr>
+                <th>UNCOMPLETED TODOS</th>
+                <th>COMPLETED TODOS</th>
+            </tr>
+            {% for todo in todos %}
+                <tr>
+                    {% if todo.has_been_done %}
+                        <th></th>
+                        <th>{{ todo.title }}</th>
+                    {% else %}
+                        <th>{{ todo.title }}</th>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
 </html>

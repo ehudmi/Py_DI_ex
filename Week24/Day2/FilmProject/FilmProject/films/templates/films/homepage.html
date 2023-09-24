@@ -1,45 +1,43 @@
-{% extends 'partials/base.html' %}{% load static %}
-<!>
-{% block content %} {% include "partials/navbar.html" %}
-<!>
-<div class="row row-cols-1 row-cols-md-4 g-4">
-	{% for film in films %}
-	<div class="col">
-		<div class="card h-100 text-center">
-			<img src="{% static "film.png" %}" class="card-img-top" alt="image"
-			style="width:150px; margin-left:25%"/>
-			<div class="card-body">
-				<h5 class="card-title">
-					{{film.title}} <a href="{% url 'edit-film' film.id %}">Edit Film</a>
-				</h5>
-				{% for director in film.director.all %}
-				<p class="card-text">
-					Director: {{film.director.all.select_related.first}}
-					<a
-						href="{% url 'edit-director' film.director.all.select_related.first.id %}"
-						>Edit Director</a
-					>
-				</p>
-				{% endfor %}
-				<p class="card-text">Made in {{film.created_in_country}}</p>
-				<p class="card-text">Released on {{film.release_date|date:"d/m/Y"}}</p>
-				<p class="card-text">Genre: {{ film.category.all|join:", " }}</p>
-				{% for review in film.review_set.all %}
-				<p class="card-text">Review: {{ review.review_text}}</p>
-				<p class="card-text">
-					Rating: {{ review.rating}} Review Date:
-					{{review.review_date|date:"d/m/Y"}}
-				</p>
-
-				{% endfor %}
-			</div>
-			<div class="card-footer">
-				<small class="text-body-secondary">Last updated 3 mins ago</small>
-			</div>
-		</div>
-	</div>
-	{% endfor %}
-</div>
-
-<!>
-{%endblock content %}
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+    {% include "partials/navbar.html" %}
+    {% if user.is_authenticated %}
+        <h1>{{ user.username }}</h1>
+        <div class="row row-cols-1 row-cols-md-4 g-4">
+            {% for film in films %}
+                <div class="col">
+                    <div class="card h-100 text-center">
+                        <img src="{% static "film.png" %}"
+                             class="card-img-top w-50 mx-auto"
+                             alt="image" />
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {{ film.title }} <a href="{% url 'edit-film' film.id %}">Edit Film</a>
+                            </h5>
+                            {% for director in film.director.all %}
+                                <p class="card-text">
+                                    Director: {{ film.director.all.select_related.first }}
+                                    <a href="{% url 'edit-director' film.director.all.select_related.first.id %}">Edit Director</a>
+                                </p>
+                            {% endfor %}
+                            <p class="card-text">Made in {{ film.created_in_country }}</p>
+                            <p class="card-text">Released on {{ film.release_date|date:"d/m/Y" }}</p>
+                            <p class="card-text">Genre: {{ film.category.all|join:", " }}</p>
+                            {% for review in film.review_set.all %}
+                                <p class="card-text">Review: {{ review.review_text }}</p>
+                                <p class="card-text">
+                                    Rating: {{ review.rating }} Review Date:
+                                    {{ review.review_date|date:"d/m/Y" }}
+                                </p>
+                            {% endfor %}
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-body-secondary">Last updated 3 mins ago</small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock content %}

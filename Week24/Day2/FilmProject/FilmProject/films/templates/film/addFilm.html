@@ -1,7 +1,8 @@
-{% extends "partials/base.html" %}{% load crispy_forms_tags %}
-<!>
+{% extends "partials/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
-<form action="" method="POST">
-	{% csrf_token %} {{form|crispy}}<input type="submit" value="Add Film" />
-</form>
+    <form action="" method="POST">
+        {% csrf_token %} {{ form|crispy }}
+        <input type="submit" value="Add Film" />
+    </form>
 {% endblock content %}
