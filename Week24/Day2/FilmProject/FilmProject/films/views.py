@@ -12,12 +12,6 @@ class HomePageView(ListView):
     context_object_name = "films"
 
 
-# class FilmCreateView(CreateView):
-#     form_class = FilmForm
-#     template_name = "film/addFilm.html"
-#     success_url = reverse_lazy("homepage")
-
-
 def film_add(request):
     poster_formset = modelformset_factory(
         Poster, form=PosterForm, exclude=(["film"]), extra=1
