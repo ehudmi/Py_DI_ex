@@ -1,9 +1,10 @@
-{% extends '_base.html' %}{% block title %}{{page_title}}{% endblock title %}
-<div>
-	{% block content %}
-	<form action="" method="post">
-		{% csrf_token %} {{ form }}
-		<input type="submit" value="Search" />
-	</form>
-	{% endblock content %}
-</div>
+{% extends '_base.html' %}
+{% block title %}
+    {{ page_title }}
+{% endblock title %}
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %} {{ form }}
+        <input type="submit" value="Search" />
+    </form>
+{% endblock content %}

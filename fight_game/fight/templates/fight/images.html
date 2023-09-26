@@ -1,21 +1,18 @@
-{% extends '_base.html' %} {% block content %}
-<div>
-	{% if images %}
-	<div>
-		{% for image in images %}
-		<h1>{{image.name}}</h1>
-		<img src="{{image.thumbnail}}" alt="" />
-		<h1>{{image.image_url}}</h1>
-		<form action="{%url 'select-image' %}" method="POST">
-			{% csrf_token %}
-			<input name="id" type="hidden" value="{{image.id}}" />
-			<input name="image_url" type="hidden" value="{{image.thumbnail}}" />
-			<button type="submit">Select</button>
-		</form>
-		{% endfor %}
-	</div>
-	{% else %}
-	<h1>No images</h1>
-	{% endif %}
-</div>
+{% extends '_base.html' %}
+{% block content %}
+    {% if images %}
+        {% for image in images %}
+            <h1>{{ image.name }}</h1>
+            <img src="{{ image.thumbnail }}" alt="" />
+            <h1>{{ image.image_url }}</h1>
+            <form action="{% url 'select-image' %}" method="POST">
+                {% csrf_token %}
+                <input name="id" type="hidden" value="{{ image.id }}" />
+                <input name="image_url" type="hidden" value="{{ image.thumbnail }}" />
+                <button type="submit">Select</button>
+            </form>
+        {% endfor %}
+    {% else %}
+        <h1>No images</h1>
+    {% endif %}
 {% endblock content %}
