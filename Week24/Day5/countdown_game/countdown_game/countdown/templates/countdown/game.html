@@ -50,7 +50,7 @@
                     <div class="lg:w-2/3 flex flex-col justify-between sm:flex-row sm:items-center items-start mx-auto">
                         <div>
                             <h1 class="py-5 text-2xl font-medium title-font text-gray-900">The Shuffled Word Is - {{ game.shuffled_word }}</h1>
-                            <h1 class="py-5 text-2xl font-medium title-font text-gray-900">Original Word Is - {{ game.current_word }}</h1>
+                            {% comment %} <h1 class="py-5 text-2xl font-medium title-font text-gray-900">Original Word Is - {{ game.current_word }}</h1> {% endcomment %}
                             <form action="" method="POST">
                                 {% csrf_token %}
                                 {{ form|crispy }}
@@ -61,6 +61,8 @@
                         </div>
                         <div class="">
                             <h1 class="py-5 text-2xl font-medium title-font text-gray-900">Number of Guesses Left - {{ game.num_guesses }}</h1>
+                            <h1 class="py-5 text-2xl font-medium title-font text-gray-900">Current Score - {{ game.current_score }}</h1>
+                            <h1 class="py-5 text-2xl font-medium title-font text-gray-900">Total Score - {{ user_score.score }}</h1>
                         </div>
                     </div>
                 </div>
