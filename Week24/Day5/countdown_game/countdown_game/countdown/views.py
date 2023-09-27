@@ -46,7 +46,9 @@ class CountdownGameView(FormView):
             self.game.num_guesses -= 1
             if self.game is not None:
                 if self.game.num_guesses == 0:
-                    context["message"] = "Game Over!"
+                    Game.objects.filter(user=self.request.user).update(
+                        current_message="Game Over!",
+                    )
                     self.generate_word()
                     self.game = Game.objects.get(user=self.request.user)
                     context["game"] = self.game
@@ -56,22 +58,23 @@ class CountdownGameView(FormView):
 
             context["guess"] = guess
             if guess == self.game.current_word:
-                context["message"] = "Perfect!"
+                self.game.current_message = "Perfect!"
                 self.game.current_score += 10
             elif guess in self.words and len(guess) == len(self.game.current_word):
-                context["message"] = "Excellent!"
+                self.game.current_message = "Excellent!"
                 self.game.current_score += 8
             elif guess in self.words and len(guess) == len(self.game.current_word) - 1:
-                context["message"] = "Good!"
+                self.game.current_message = "Good!"
                 self.game.current_score += 5
             elif guess in self.words and len(guess) == len(self.game.current_word) - 2:
-                context["message"] = "OK!"
+                self.game.current_message = "OK!"
                 self.game.current_score += 3
             else:
-                context["message"] = "Too Bad!"
+                self.game.current_message = "Too Bad!"
         Game.objects.filter(user=self.request.user).update(
             num_guesses=self.game.num_guesses,
             current_score=self.game.current_score,
+            current_message=self.game.current_message,
         )
         self.user_score.score += self.game.current_score
 

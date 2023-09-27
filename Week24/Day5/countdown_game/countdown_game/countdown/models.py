@@ -25,6 +25,7 @@ class Game(models.Model):
     shuffled_word = models.CharField(max_length=50, default="")
     num_guesses = models.IntegerField(default=3)
     current_score = models.IntegerField(default=0)
+    current_message = models.CharField(max_length=50, default="")
 
     def __str__(self):
         return f"{self.user} - {self.current_score} - {self.current_word}"
