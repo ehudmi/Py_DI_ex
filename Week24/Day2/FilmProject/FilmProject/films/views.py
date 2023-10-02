@@ -2,11 +2,19 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
 from django.forms import modelformset_factory
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.generic import (
+    ListView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+    View,
+    DetailView,
+)
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.models import User
 from .models import Film, Director, Poster
+from accounts.models import UserProfile
 from .forms import FilmForm, DirectorForm, ReviewForm, PosterForm
 
 
@@ -102,3 +110,36 @@ class FilmDeleteView(SuccessMessageMixin, DeleteView):
             user = User.objects.get(id=self.request.user.pk)
             if user.is_superuser:
                 return super(FilmDeleteView, self).get_queryset()
+
+
+class FavoriteFilmView(View):
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            film = Film.objects.get(pk=self.kwargs["pk"])
+            user = User.objects.get(id=request.user.pk)
+            if UserProfile.objects.filter(user=user):
+                user_profile = UserProfile.objects.get(user=user)
+            else:
+                user_profile = UserProfile.objects.create(user=user)
+            if user_profile.favorite_films.filter(pk=film.pk).exists():
+                user_profile.favorite_films.remove(film)
+                messages.success(request, f"{film.title} removed from favorites")
+            else:
+                user_profile.favorite_films.add(film)
+                messages.success(request, f"{film.title} added to favorites")
+            return redirect("homepage")
+        else:
+            return HttpResponseForbidden()
+
+
+class FilmDetailView(DetailView):
+    model = Film
+    template_name = "film/filmDetail.html"
+    context_object_name = "film"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        film = context["object"]
+        reviews = film.review_set.all()
+        context["reviews"] = reviews
+        return context

@@ -1,0 +1,42 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block content %}
+    {% include "partials/navbar.html" %}
+    {% if user.is_authenticated %}
+        <div class="card h-50 text-center">
+            {% if film.poster.image %}
+                <img src={{ film.poster.image.url }} class="card-img-top w-25 mx-auto" alt="{{ film.poster.explanation_img }}">
+            {% else %}
+                <img src="{% static "film.jpg" %}"
+                     class="card-img-top w-25 mx-auto"
+                     alt="image">
+            {% endif %}
+            <div class="card-body">
+                <h1 class="card-title">{{ film.title }}</h1>
+                {% for director in film.director.all %}
+                    <h5 class="card-text">Director: {{ film.director.all.select_related.first }}</h5>
+                {% endfor %}
+                <h5 class="card-text">Made in {{ film.created_in_country }}</h5>
+                <h5 class="card-text">Released on {{ film.release_date|date:"d/m/Y" }}</h5>
+                <h5 class="card-text">Genre: {{ film.category.all|join:", " }}</h5>
+                {% for review in film.review_set.all %}
+                    <h5 class="card-text">Review Author: {{ review.review_author }}</h5>
+                    <h5 class="card-text">Review: {{ review.review_text }}</h5>
+                    <h5 class="card-text">
+                        Rating: {{ review.rating }} Review Date:
+                        {{ review.review_date|date:"d/m/Y" }}
+                    </h5>
+                {% endfor %}
+                <a href="{% url "favorite-film" film.id %}">
+                    <button type="button" class="btn btn-primary">
+                        {% if film in user.userprofile.favorite_films.all %}
+                            Remove from Favorites
+                        {% else %}
+                            Add to Favorites
+                        {% endif %}
+                    </button>
+                </a>
+            </div>
+        </div>
+    {% endif %}
+{% endblock content %}

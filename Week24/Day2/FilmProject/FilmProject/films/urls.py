@@ -38,4 +38,8 @@ urlpatterns = [
         views.FilmDeleteView.as_view(),
         name="delete-film",
     ),
+    path(
+        "favoriteFilm/<int:pk>", views.FavoriteFilmView.as_view(), name="favorite-film"
+    ),
+    path("films/filmDetail/<pk>", views.FilmDetailView.as_view(), name="film-detail"),
 ]

@@ -22,6 +22,16 @@
                                     <a href="{% url 'edit-film' film.id %}">Edit Film</a>
                                 {% endif %}
                             </h5>
+                            <a href="{% url "film-detail" film.id %}">Details</a>
+                            <a href="{% url "favorite-film" film.id %}">
+                                <button type="button" class="btn btn-primary">
+                                    {% if film in user.userprofile.favorite_films.all %}
+                                        Remove from Favorites
+                                    {% else %}
+                                        Add to Favorites
+                                    {% endif %}
+                                </button>
+                            </a>
                             {% for director in film.director.all %}
                                 <p class="card-text">
                                     Director: {{ film.director.all.select_related.first }}
