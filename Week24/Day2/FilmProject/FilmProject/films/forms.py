@@ -31,20 +31,19 @@ class ReviewForm(forms.ModelForm):
         (4, "Good"),
         (5, "Excellent"),
     ]
-    review_date = forms.DateField(
-        widget=forms.DateInput(format="%d/%m/%Y"), input_formats=["%d/%m/%Y"]
-    )
+
+    review_text = forms.CharField(widget=forms.Textarea(attrs={"class": "textarea"}))
     rating = forms.ChoiceField(
         widget=forms.RadioSelect,
         choices=CHOICES,
     )
-    widgets = {
-        "text": forms.Textarea(attrs={"class": "textarea"}),
-    }
+    review_date = forms.DateField(
+        widget=forms.DateInput(format="%d/%m/%Y"), input_formats=["%d/%m/%Y"]
+    )
 
     class Meta:
         model = Review
-        fields = "__all__"
+        fields = ["film", "review_text", "rating", "review_date"]
 
 
 class PosterForm(forms.ModelForm):

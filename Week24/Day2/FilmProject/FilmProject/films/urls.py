@@ -33,4 +33,9 @@ urlpatterns = [
         name="add-review",
     ),
     path("poster/addPoster/", views.PosterCreateView.as_view(), name="add-poster"),
+    path(
+        "films/deleteFilm/<pk>",
+        views.FilmDeleteView.as_view(),
+        name="delete-film",
+    ),
 ]

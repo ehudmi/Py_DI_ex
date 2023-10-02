@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 class Country(models.Model):
@@ -40,6 +41,9 @@ class Review(models.Model):
     review_text = models.TextField()
     rating = models.IntegerField()
     review_date = models.DateTimeField(default=timezone.now)
+    review_author = models.ForeignKey(
+        User, on_delete=models.CASCADE, null=True, blank=True
+    )
 
     def __str__(self):
         return self.review_text

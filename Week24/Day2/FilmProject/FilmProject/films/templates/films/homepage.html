@@ -17,24 +17,33 @@
                         {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">
-                                {{ film.title }} <a href="{% url 'edit-film' film.id %}">Edit Film</a>
+                                {{ film.title }}
+                                {% if user.is_superuser %}
+                                    <a href="{% url 'edit-film' film.id %}">Edit Film</a>
+                                {% endif %}
                             </h5>
                             {% for director in film.director.all %}
                                 <p class="card-text">
                                     Director: {{ film.director.all.select_related.first }}
-                                    <a href="{% url 'edit-director' film.director.all.select_related.first.id %}">Edit Director</a>
+                                    {% if user.is_superuser %}
+                                        <a href="{% url 'edit-director' film.director.all.select_related.first.id %}">Edit Director</a>
+                                    {% endif %}
                                 </p>
                             {% endfor %}
                             <p class="card-text">Made in {{ film.created_in_country }}</p>
                             <p class="card-text">Released on {{ film.release_date|date:"d/m/Y" }}</p>
                             <p class="card-text">Genre: {{ film.category.all|join:", " }}</p>
                             {% for review in film.review_set.all %}
+                                <p class="card-text">Review Author: {{ review.review_author }}</p>
                                 <p class="card-text">Review: {{ review.review_text }}</p>
                                 <p class="card-text">
                                     Rating: {{ review.rating }} Review Date:
                                     {{ review.review_date|date:"d/m/Y" }}
                                 </p>
                             {% endfor %}
+                            {% if user.is_superuser %}
+                                <a href="{% url 'delete-film' film.id %}">Delete Film</a>
+                            {% endif %}
                         </div>
                         <div class="card-footer">
                             <small class="text-body-secondary">Last updated 3 mins ago</small>

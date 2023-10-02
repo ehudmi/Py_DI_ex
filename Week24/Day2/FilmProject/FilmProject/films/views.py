@@ -1,9 +1,13 @@
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
+from django.forms import modelformset_factory
 from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.models import User
 from .models import Film, Director, Poster
 from .forms import FilmForm, DirectorForm, ReviewForm, PosterForm
-from django.views.generic import ListView, CreateView, UpdateView
-from django.forms import modelformset_factory
 
 
 class HomePageView(ListView):
@@ -23,6 +27,9 @@ def film_add(request):
         )
         if form.is_valid():
             film = form.save()
+            messages.success(
+                request, f"{form.cleaned_data['title']} Added successfully"
+            )
             if formset.is_valid():
                 for form in formset.cleaned_data:
                     image = form["image"]
@@ -35,10 +42,20 @@ def film_add(request):
     return render(request, "film/addFilm.html", {"form": form, "formset": formset})
 
 
-class DirectorCreateView(CreateView):
+class DirectorCreateView(SuccessMessageMixin, CreateView):
     form_class = DirectorForm
     template_name = "director/addDirector.html"
     success_url = reverse_lazy("homepage")
+    success_message = "%(first_name)s %(last_name)s Added successfully"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            user = User.objects.get(id=request.user.pk)
+            if user.is_superuser:
+                return super().dispatch(request, *args, **kwargs)
+            else:
+                return HttpResponseForbidden()
+        return super().dispatch(request, *args, **kwargs)
 
 
 class FilmUpdateView(UpdateView):
@@ -46,22 +63,42 @@ class FilmUpdateView(UpdateView):
     form_class = FilmForm
     template_name = "film/editFilm.html"
     success_url = reverse_lazy("homepage")
+    success_message = "%(title)s Updated successfully"
 
 
-class DirectorUpdateView(UpdateView):
+class DirectorUpdateView(SuccessMessageMixin, UpdateView):
     model = Director
     form_class = DirectorForm
     template_name = "director/editDirector.html"
     success_url = reverse_lazy("homepage")
+    success_message = "%(first_name)s %(last_name)s Updated successfully"
 
 
 class ReviewCreateView(CreateView):
     form_class = ReviewForm
     template_name = "review/addReview.html"
     success_url = reverse_lazy("homepage")
+    success_message = "Review created successfully"
+
+    def form_valid(self, form):
+        form.instance.review_author = self.request.user
+        return super().form_valid(form)
 
 
 class PosterCreateView(CreateView):
     form_class = PosterForm
     template_name = "poster/addPoster.html"
     success_url = reverse_lazy("homepage")
+
+
+class FilmDeleteView(SuccessMessageMixin, DeleteView):
+    model = Film
+    template_name = "film/confirm_delete.html"
+    success_message = "%(title)s deleted successfully"
+    success_url = reverse_lazy("homepage")
+
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            user = User.objects.get(id=self.request.user.pk)
+            if user.is_superuser:
+                return super(FilmDeleteView, self).get_queryset()
