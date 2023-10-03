@@ -25,12 +25,18 @@ class Director(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 
+class Producer(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+
+
 class Film(models.Model):
     title = models.CharField(max_length=255)
     release_date = models.DateTimeField(default=timezone.now)
     created_in_country = models.ForeignKey(Country, on_delete=models.CASCADE)
     category = models.ManyToManyField(Category)
     director = models.ManyToManyField(Director)
+    producer = models.ManyToManyField(Producer)
 
     def __str__(self):
         return self.title

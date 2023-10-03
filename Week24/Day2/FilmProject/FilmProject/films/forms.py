@@ -1,5 +1,7 @@
 from django import forms
-from .models import Film, Director, Review, Category, Poster
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Row, Column
+from .models import Film, Director, Review, Category, Poster, Producer
 
 
 class FilmForm(forms.ModelForm):
@@ -47,6 +49,28 @@ class ReviewForm(forms.ModelForm):
 
 
 class PosterForm(forms.ModelForm):
+    explanation_img = forms.CharField(
+        widget=forms.Textarea(attrs={"class": "textarea"})
+    )
+
     class Meta:
         model = Poster
         fields = "__all__"
+
+
+class ProducerForm(forms.ModelForm):
+    class Meta:
+        model = Producer
+        fields = ["first_name", "last_name"]
+
+
+class ProducerFormHelper(FormHelper):
+    def __init__(self, *args, **kwargs):
+        super(ProducerFormHelper, self).__init__(*args, **kwargs)
+        self.layout = Layout(
+            Row(
+                Column(("first_name"), css_class="col-md-6"),
+                Column(("last_name"), css_class="col-md-6"),
+                css_class="form-row",
+            )
+        )
