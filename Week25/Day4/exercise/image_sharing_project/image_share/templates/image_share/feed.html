@@ -6,52 +6,22 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Image Sharing App</title>
+        <title>Feed</title>
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body>
         <div class="w-3/4 mx-auto mt-10">
-            <h1 class="text-3xl font-bold mb-5">Image Sharing App</h1>
-            <p>If you want to share your images with the world, you've come to the right place!</p>
-            {% if user.is_authenticated %}
-                <a href={% url "create_album" %}>
+            <div>
+                <a href={% url "index" %}>
                     <button type="button"
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                        Add New Album
+                        Back To Index
                     </button>
                 </a>
-                <a href={% url "upload_image" %}>
-                    <button type="button"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                        Add Image
-                    </button>
-                </a>
-                <a href={% url "my_images" %}>
-                    <button type="button"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                        My Images
-                    </button>
-                </a>
-                <a href={% url "feed" %}>
-                    <button type="button"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                        My Feed
-                    </button>
-                </a>
-                <a href={% url "logout" %}>
-                    <button type="button"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                        Logout
-                    </button>
-                </a>
-            {% else %}
-                <a href={% url "login" %}>
-                    <button type="button"
-                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                        register or login
-                    </button>
-                </a>
-            {% endif %}
+                <h1 class="text-3xl font-bold mb-5">My Feed</h1>
+                <h1>User: {{ user }}</h1>
+                <h1>Currently Following:{{ data.count_follow.number_following }}</h1>
+            </div>
             <div class="grid grid-cols-6 md:grid-cols-6 gap-4">
                 {% for album in data.albums %}
                     <div class="col-span-6 md:col-span-2">
