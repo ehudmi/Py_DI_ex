@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse
 from django.views.generic import ListView, DetailView, View, UpdateView
 from django.db.models import Avg, Count
 from .models import Book, BookReview
@@ -76,13 +75,6 @@ class AddBookReviewView(View):
 
 class UpdateBookReviewView(UpdateView):
     model = BookReview
+    form_class = BookReviewForm
     template_name = "reviews/update_review.html"
-    fields = ["rating", "review_text"]
-    context_object_name = "review"
-    pk_url_kwarg = "review_pk"
-
-    def get_success_url(self):
-        return reverse("book-detail", kwargs={"pk": self.kwargs["pk"]})
-
-    def get_queryset(self):
-        return BookReview.objects.filter(user=self.request.user)
+    success_url = "my-reviews"
