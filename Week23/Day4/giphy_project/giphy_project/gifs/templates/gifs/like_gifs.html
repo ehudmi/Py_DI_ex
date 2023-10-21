@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+<head>
+	{% block title %}List by Likes{% endblock title %}
+</head>
+{% block content %}
+<div>
+	{% for gif in gifs %}
+	<h2>{{gif.title}}</h2>
+	<a href="{{gif.url}}"><img src="{{gif.url}}" alt="gif" /></a>
+	<p>Uploaded by {{gif.uploader_name}}</p>
+	<p>Created {{gif.created_at|date:"d/m/Y"}}</p>
+	<p>{{gif.categories.all|join:", "}}</p>
+	<p>Likes: {{gif.likes}}</p>
+	{% endfor %}
+</div>
+{% endblock content %}

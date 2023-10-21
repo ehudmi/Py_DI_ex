@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+<head>
+	{% block title %}Add Category{% endblock title %}
+</head>
+{% block content %}
+<div>
+	{% if categories %}
+	<div>
+		{% for category in categories %}
+		<h1>{{category}}</h1>
+		<div>
+			{% for gif in category.gifs.all %}
+			<h2>{{gif.title}}</h2>
+			<img src="{{gif.url}}" alt="gif" />
+			<p>Uploaded by {{gif.uploader_name}}</p>
+			<p>Created {{gif.created_at|date:"d/m/Y"}}</p>
+			{% endfor %}
+		</div>
+		{% endfor %}
+	</div>
+	{% endif %}
+</div>
+{% endblock content %}

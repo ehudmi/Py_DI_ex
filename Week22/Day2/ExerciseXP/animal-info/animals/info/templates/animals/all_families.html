@@ -1,0 +1,13 @@
+<html>
+	<body>
+		{%if families%}
+		<ul>
+			{%for family in families%}
+			<li>{{family.name|title}}</li>
+			{%endfor%}
+		</ul>
+		{%else%}
+		<h3>No Families found</h3>
+		{%endif%}
+	</body>
+</html>

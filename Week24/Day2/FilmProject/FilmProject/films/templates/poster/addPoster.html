@@ -1,0 +1,8 @@
+{% extends "partials/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %} {{ form|crispy }}
+        <input type="submit" value="Add Poster" />
+    </form>
+{% endblock content %}

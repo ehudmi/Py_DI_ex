@@ -1,0 +1,134 @@
+Daily Challenge : People
+Last updated : July 14th 2023
+
+
+What You Will Learn :
+Structuring project files and directories in a Django project.
+Setting up a Django project and virtual environment.
+Creating a Django app.
+Mapping URLs to views using Django’s URL routing.
+Passing parameters through URLs and accessing them in views.
+Rendering HTML templates in Django.
+Passing data from views to templates using context.
+Accessing and manipulating data in Django views.
+
+
+Instructions
+We will create a simple Django-based web application to manage information about different people.
+
+Here is the structure of the project
+
+people_project/            # Main project directory
+  └── env/                 # Virtual environment directory
+  └── people/              # Django project directory
+      ├── info/            # Django app directory
+      │   ├── templates/   # Directory for HTML templates
+      │   │   ├── person.html
+      │   │   ├── people.html
+      │   │   ├── all_people.html
+      │   ├── views.py     # App views file
+      ├── people/          # Django project settings directory
+      ├── manage.py        # Django project management file
+      └── people_project/  # Main project virtual environment activation script
+
+
+Part 1
+Create a new directory for your project called people_project and navigate into it.
+
+mkdir people_project
+cd people_project
+
+
+Create a new virtual environment and activate it.
+
+python -m venv env
+source env/bin/activate  # For Linux/Mac
+env\Scripts\activate  # For Windows
+
+
+Install Django.
+
+pip install django
+
+
+Create a new Django project called people.
+
+django-admin startproject people
+
+
+Navigate into the people project directory and create a new app called info.
+
+cd people 
+python manage.py startapp info
+
+
+Open the people/settings.py file and add the info app to the INSTALLED_APPS list.
+
+...
+INSTALLED_APPS = [
+    ...
+    'info',
+]
+...
+
+
+Copy and paste the following variables into a file info/views.py
+
+name = 'Bob Smith'
+age = 35
+country = 'USA'
+
+
+create a view display_person(request) related to the /person URL. It should render the information about the person 
+in the person.html template.
+
+Part 2
+Copy and paste the following variables into a file info/views.py
+
+people = ['bob','martha', 'fabio', 'john']
+
+
+create a view display_people(request) related to the /people URL. It should render the information about the people 
+in the people.html template.
+The people should be sorted alphabetically
+their name should be capitalized (use built-in template filter)
+
+Part 3
+Copy and paste the following variables into a file info/views.py
+
+all_people = [
+  {
+    'id': 1,
+    'name': 'Bob Smith',
+    'age': 35,
+    'country': 'USA'
+  },
+  {
+    'id': 2,
+    'name': 'Martha Smith',
+    'age': 60,
+    'country': 'USA'
+  },
+  {
+    'id': 3,
+    'name': 'Fabio Alberto',
+    'age': 18,
+    'country': 'Italy'
+  },
+  {
+    'id': 4,
+    'name': 'Dietrich Stein',
+    'age': 85,
+    'country': 'Germany'
+  }
+]
+
+
+Create a view display_all_people(request) related to the /all_people URL. It should render the information about the 
+people sorted by their age, in the all_people.html template.
+Finally, remember to update the URL configuration in people/urls.py to map the new views to URLs.
+
+
+Duration & Difficulty
+Duration (approx)	Difficulty
+40 minutes	⭐

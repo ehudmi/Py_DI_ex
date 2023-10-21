@@ -1,0 +1,13 @@
+<html>
+	<body>
+		{%if people%}
+		<ul>
+			{%for person in people%}
+			<li>{{person|title}}</li>
+			{%endfor%}
+		</ul>
+		{%else%}
+		<h1>There are no people</h1>
+		{%endif%}
+	</body>
+</html>

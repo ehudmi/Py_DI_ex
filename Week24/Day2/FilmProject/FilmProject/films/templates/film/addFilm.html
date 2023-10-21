@@ -1,0 +1,41 @@
+{% extends "partials/base.html" %}
+{% load crispy_forms_tags %}
+{% block navbar %}
+    {% include "partials/navbar.html" %}
+{% endblock navbar %}
+{% block content %}
+    <div class="container mt-3">
+        <h1 class="text-center">Add Film</h1>
+        <form class="card p-3 mt-3 mb-3 border-0 shadow-sm bg-light rounded"
+              action=""
+              method="POST"
+              enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">{{ form.title|as_crispy_field }}</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">{{ form.release_date|as_crispy_field }}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">{{ form.category|as_crispy_field }}</div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">{{ form.created_in_country|as_crispy_field }}</div>
+                </div>
+            </div>
+            {{ formset_poster.management_form }}
+            {% for form in formset_poster %}{{ form|crispy }}{% endfor %}
+            <div>{{ form.director|as_crispy_field }}</div>
+            <h5>Producers</h5>
+            {% crispy formset_producer producer_helper %}
+            {{ formset_producer.management_form|crispy }}
+            <div class="col-md-6">
+                <button type="submit" class="btn btn-primary">Add Film</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

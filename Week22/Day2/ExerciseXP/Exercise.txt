@@ -1,0 +1,157 @@
+Exercises XP
+Last updated : July 14th 2023
+
+
+What We Will Learn
+Django Basics
+Structuring project files and directories in a Django project.
+Setting up a Django project and virtual environment.
+Creating a Django app.
+Mapping URLs to views using Django’s URL routing.
+Passing parameters through URLs and accessing them in views.
+Rendering HTML templates in Django.
+Passing data from views to templates using context.
+Accessing and manipulating data in Django views.
+
+
+Exercise 1 : Animals
+Instructions
+We will create a simple Django-based web application to manage information about different animals.
+
+Here is the structure of the project
+
+animal-info/               # Main project directory
+  └── env/                 # Virtual environment directory
+  └── animals/             # Django project directory
+      ├── info/            # Django app directory
+      │   ├── templates/   # Directory for HTML templates
+      │   │   └── animals/    # Subdirectory for app templates
+      │   │       ├── all_animals.html
+      │   │       ├── all_families.html
+      │   │       ├── animal.html
+      │   │       └── animals_in_family.html
+      │   ├── urls.py      # App URLs file
+      │   └── data.py      # Data arrays file
+      ├── animals/         # Django project settings directory
+      ├── manage.py        # Django project management file
+      └── animal-info/     # Main project virtual environment activation script
+
+
+Create a new directory for your project called “animal-info” and navigate into it.
+
+mkdir animal-info
+cd animal-info
+
+
+Create a new virtual environment and activate it.
+
+python -m venv env
+source env/bin/activate  # For Linux/Mac
+env\Scripts\activate  # For Windows
+
+
+Install Django.
+
+pip install Django
+
+
+Create a new Django project called “animals”.
+
+django-admin startproject animals
+
+
+Navigate into the animals project directory and create a new app called info.
+
+cd animals
+python manage.py startapp info
+
+
+Open the animals/settings.py file and add the info app to the INSTALLED_APPS list.
+
+...
+INSTALLED_APPS = [
+    ...
+    'info',
+]
+...
+
+
+Copy and paste the following arrays into a file named data.py in the info app directory.
+
+animals = [
+    {
+        "id": 1,
+        "name": "Dog",
+        "legs": 4,
+        "weight": 5.67,
+        "height": 4.2,
+        "speed": 34,
+        "family": 2
+    },
+    {
+        "id": 2,
+        "name": "Domestic Cat",
+        "legs": 2,
+        "weight": 5.67,
+        "height": 4.2,
+        "speed": 34,
+        "family": 1
+    },
+    {
+        "id": 3,
+        "name": "Panther",
+        "legs": 2,
+        "weight": 5.67,
+        "height": 4.2,
+        "speed": 34,
+        "family": 1
+    }
+]
+
+families = [
+    {
+        "id": 1,
+        "name": "Felidae"
+    },
+    {
+        "id": 2,
+        "name": "Caninae"
+    }
+]
+
+
+Create the following URLs in the animals/urls.py file.
+
+/animals/
+/families/
+/animal/X, where X is the ID (primary key) of the given animal.
+/animal_in_family/X, where X is the ID (primary key) of the given family.
+
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    ... your code here
+]
+
+
+Create the following HTML files in the info/templates/animals directory:
+
+all_animals.html
+all_families.html
+animal.html
+animals_in_family.html
+
+Implement the views in the info/views.py file:
+
+display_all_animals(request) : should show a list of all the animals. Display all the information : name, legs, 
+weight, height and speed
+display_all_families(request) : should show a list of all the families’ name.
+display_one_animal(request, animal_id) : should show the information about one animal depending on its id.
+display_animal_per_family(request, family_id) : should show the information about all the animals from the family 
+(Hint: check the family key in the dictionaries of the animals list)
+
+More Info
+Duration (approx)
+1 hour

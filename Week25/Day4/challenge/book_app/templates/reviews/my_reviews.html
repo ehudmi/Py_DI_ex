@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}
+    <title>My Reviews</title>
+{% endblock title %}
+{% block content %}
+    <a href={% url "index" %}>
+        <button type="button"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+            Back To Index
+        </button>
+    </a>
+    <h1 class="text-3xl font-bold mb-5">My Reviews</h1>
+    <ul>
+        {% if reviews %}
+            {% for review in reviews %}
+                <li>
+                    <a href="{% url 'book-detail' review.book.id %}">
+                        <p class="text-1xl font-bold mb-3 mt-3">{{ review.book.title }}</p>
+                    </a>
+                    {{ review.rating }} stars
+                    <br>
+                    {{ review.review_text }}
+                    <br>
+                    <a href={% url "update-review" review.id %}>
+                        <button type="button"
+                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                            Update Review
+                        </button>
+                    </a>
+                </li>
+            {% endfor %}
+        {% else %}
+            <li>No reviews yet!</li>
+        {% endif %}
+    </ul>
+{% endblock content %}

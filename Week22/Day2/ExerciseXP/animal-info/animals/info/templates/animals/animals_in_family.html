@@ -1,0 +1,15 @@
+<html>
+	<body>
+		{%if animals%}
+		<h1>The {{animals.0.family.name|title}} family contains:</h1>
+		<h2>{{counter}} Items</h2>
+		<ul>
+			{%for animal in animals%}
+			<li>The {{animal.name|title}}</li>
+			{%endfor%}
+		</ul>
+		{%else%}
+		<h3>No animals in family</h3>
+		{%endif%}
+	</body>
+</html>

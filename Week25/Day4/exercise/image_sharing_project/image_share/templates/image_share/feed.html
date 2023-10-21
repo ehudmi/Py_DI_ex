@@ -1,0 +1,67 @@
+{% load tailwind_filters %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Feed</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body>
+        <div class="w-3/4 mx-auto mt-10">
+            <div>
+                <a href={% url "index" %}>
+                    <button type="button"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                        Back To Index
+                    </button>
+                </a>
+                <h1 class="text-3xl font-bold mb-5">My Feed</h1>
+                <h1>User: {{ user }}</h1>
+                <h1>Currently Following:{{ data.count_follow.number_following }}</h1>
+            </div>
+            <div class="grid grid-cols-6 md:grid-cols-6 gap-4">
+                {% for album in data.albums %}
+                    <div class="col-span-6 md:col-span-2">
+                        <a href={% url "view_album" album.id %}>
+                            <img class="h-24 max-w-xs rounded-lg"
+                                 src="{% static "folder_96.png" %}"
+                                 alt="{{ album.title }}">
+                        </a>
+                        <h3>{{ album.title }}</h3>
+                        <h3>Created By {{ album.created_by }}</h3>
+                        <a href={% url "set_follow" album.created_by.id %}>
+                            <button type="button"
+                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                {% if album.created_by.id in data.follow %}
+                                    Unfollow {{ album.created_by }}
+                                {% else %}
+                                    Follow {{ album.created_by }}
+                                {% endif %}
+                            </button>
+                        </a>
+                    </div>
+                {% endfor %}
+                {% for image in data.images %}
+                    <div>
+                        <img class="h-24 max-w-xs rounded-lg" src={{ image.image.url }} alt="{{ image.description }}">
+                        <h3>{{ image.author }}</h3>
+                        <a href={% url "set_follow" image.author.id %}>
+                            <button type="button"
+                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                {% if image.author.id in data.follow %}
+                                    Unfollow
+                                {% else %}
+                                    Follow
+                                {% endif %}
+                                {{ image.author }}
+                            </button>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>

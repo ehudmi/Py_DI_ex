@@ -1,0 +1,33 @@
+{% load tailwind_filters %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Vie Albums</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body>
+        <div class="w-3/4 mx-auto mt-10">
+            <div>
+                <a href={% url "index" %}>
+                    <button type="button"
+                            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                        Back To Index
+                    </button>
+                </a>
+                <h1 class="text-3xl font-bold mb-5">Album List</h1>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                <h1>{{ data.album.title }}</h1>
+                {% for item in data.images %}
+                    <div>
+                        <img class="h-64 max-w-full rounded-lg" src={{ item.image.url }} alt="{{ item.description }}">
+                        <h3>{{ item.author }}</h3>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>

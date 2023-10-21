@@ -1,0 +1,12 @@
+{% extends "partials/base.html" %}
+{% block content %}
+    {% include "partials/navbar.html" %}
+    {% if user.is_authenticated %}
+        <h2>Username: {{ user.username }}</h2>
+        <h2>First Name: {{ user.first_name }}</h2>
+        <h2>Last Name: {{ user.last_name }}</h2>
+        <h2>Id: {{ user.id }}</h2>
+    {% else %}
+        <h2>No user found</h2>
+    {% endif %}
+{% endblock content %}

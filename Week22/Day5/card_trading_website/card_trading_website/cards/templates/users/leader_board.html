@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+<head>
+	{% block title %}Leader Board{% endblock title %}
+</head>
+{% block content %} {% if users %}
+<table class="table table-bordered table-hover">
+	<tr>
+		<th>Rank</th>
+		<th>Username</th>
+		<th>Points</th>
+		<th>Owned Cards</th>
+	</tr>
+	{% for user in users %}
+	<tr>
+		<td>{{forloop.counter}}</td>
+		<td>{{user.username}}</td>
+		<td>{{user.points}}</td>
+		{% for card in cards %} {% if card.current_owner.pk is user.pk %}
+		<td>{{card.name_character}}</td>
+		{% endif %} {% endfor %}
+	</tr>
+
+	{% endfor %}
+</table>
+{% else %}
+<h1>There are no users</h1>
+{% endif %} {% endblock content %}

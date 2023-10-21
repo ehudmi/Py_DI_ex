@@ -1,0 +1,67 @@
+{% load tailwind_filters %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Word Game</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body>
+        <header class="text-gray-600 body-font border-b">
+            <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+                <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+                    <span class="ml-3 text-xl">❔ Guess The Word Game</span>
+                </a>
+                <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+                    <a href="{% url 'logout' %}" class="mr-5 hover:text-gray-900">Logout</a>
+                </nav>
+                <a href="">
+                    <button class="inline-flex items-center bg-green-200 border-0 py-2 px-5 focus:outline-none hover:bg-green-300 rounded text-base mt-4 md:mt-0">
+                        Leaderboard
+                        <svg fill="none"
+                             stroke="currentColor"
+                             stroke-linecap="round"
+                             stroke-linejoin="round"
+                             stroke-width="2"
+                             class="w-4 h-4 ml-1"
+                             viewBox="0 0 24 24">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </a>
+            </div>
+        </header>
+        <section class="text-gray-600 body-font">
+            <div class="container px-5 py-24 mx-auto">
+                <div class="text-center">
+                    <h1 class="py-5 text-4xl font-medium title-font text-gray-900">
+                        {{ user.first_name }} - Guess the word and win the game or make the longest word
+                    </h1>
+                    <div class="lg:w-2/3 flex flex-col justify-between sm:flex-row sm:items-center items-start mx-auto">
+                        <div>
+                            <h1 class="py-5 text-2xl font-medium title-font text-gray-900">The Shuffled Word Is - {{ game.shuffled_word }}</h1>
+                            {% comment %} <h1 class="py-5 text-2xl font-medium title-font text-gray-900">Original Word Is - {{ game.current_word }}</h1> {% endcomment %}
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                                <input type="submit"
+                                       class="px-7 py-2 bg-green-400 hover:cursor-pointer hover:bg-green-300 rounded"
+                                       value="Guess">
+                            </form>
+                        </div>
+                        <div class="">
+                            <h1 class="py-5 text-2xl font-medium title-font {% if game.current_message == "Game Over!" %} text-red-400 {% else %} text-blue-700 {% endif %}">
+                                {{ game.current_message }}
+                            </h1>
+                            <h1 class="py-5 text-2xl font-medium title-font text-gray-900">Number of Guesses Left - {{ game.num_guesses }}</h1>
+                            <h1 class="py-5 text-2xl font-medium title-font text-gray-900">Current Score - {{ game.current_score }}</h1>
+                            <h1 class="py-5 text-2xl font-medium title-font text-gray-900">Total Score - {{ user_score.score }}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

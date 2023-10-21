@@ -1,0 +1,19 @@
+<html>
+	<body>
+		{%if animal%}
+		<h1>The {{animal.name|title}}</h1>
+		<h2>
+			Is part of the
+			<a href={%url 'animal-in-family' animal.family.id%}
+				>{{animal.family.name}}</a
+			>
+			family
+		</h2>
+		<h3>it has: {{animal.legs}} legs</h3>
+		<h3>it weighs {{animal.weight}} kg and is {{animal.height}} cm high</h3>
+		<h3>its max speed is {{animal.speed}} km/hr</h3>
+		{%else%}
+		<h3>No animal found</h3>
+		{%endif%}
+	</body>
+</html>
