@@ -1,15 +1,20 @@
-from django.shortcuts import get_object_or_404
 from rest_framework import mixins, generics
+from rest_framework.response import Response
 from .models import Student
 from .serializers import StudentSerializer
-from rest_framework.response import Response
 
 
 class StudentListView(
     mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView
 ):
-    queryset = Student.objects.all()
     serializer_class = StudentSerializer
+
+    def get_queryset(self):
+        queryset = Student.objects.all()
+        date_joined = self.request.GET.get("date_joined")
+        if date_joined:
+            queryset = queryset.filter(date_joined=date_joined)
+        return queryset
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
