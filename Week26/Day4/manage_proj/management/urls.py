@@ -9,6 +9,8 @@ from .views import (
     ProjectDetailAPIView,
     DepartmentDetailAPIView,
     EmployeeDetailAPIView,
+    UserAPIView,
+    UserDetailAPIView,
 )
 
 
@@ -28,5 +30,11 @@ urlpatterns = [
         "employees/<int:pk>/",
         EmployeeDetailAPIView.as_view(),
         name="employee-detail",
+    ),
+    path("users/", UserAPIView.as_view(), name="user-operations"),
+    path(
+        "users/<int:pk>/",
+        UserDetailAPIView.as_view(),
+        name="user-detail",
     ),
 ]

@@ -4,11 +4,13 @@ from rest_framework import generics
 
 from .permissions import isDepartmentAdmin
 from .models import Project, Task, Department, Employee
+from django.contrib.auth.models import User
 from .serializers import (
     ProjectSerializer,
     TaskSerializer,
     DepartmentSerializer,
     EmployeeSerializer,
+    UserSerializer,
 )
 
 
@@ -46,6 +48,7 @@ class DepartmentDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Department.objects.all()
     serializer_class = DepartmentSerializer
     permission_classes = [isDepartmentAdmin]
+    lookup_field = "pk"
 
 
 class EmployeeAPIView(generics.ListCreateAPIView):
@@ -57,4 +60,16 @@ class EmployeeAPIView(generics.ListCreateAPIView):
 class EmployeeDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
+    permission_classes = [isDepartmentAdmin]
+
+
+class UserAPIView(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [isDepartmentAdmin]
+
+
+class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
     permission_classes = [isDepartmentAdmin]

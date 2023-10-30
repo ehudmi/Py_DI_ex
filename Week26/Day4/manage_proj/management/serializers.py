@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Project, Task, Department, Employee
+from django.contrib.auth.models import User
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
@@ -30,7 +31,18 @@ class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Department
-        fields = ["url", "name", "description"]
+        fields = ["url", "name", "description", "admin"]
+
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    url = serializers.HyperlinkedIdentityField(
+        view_name="user-detail",
+        lookup_field="pk",
+    )
+
+    class Meta:
+        model = User
+        fields = ["url", "username", "email", "password"]
 
 
 class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
