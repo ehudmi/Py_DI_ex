@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Project(models.Model):
@@ -25,6 +26,7 @@ class Task(models.Model):
 class Department(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=100)
+    admin = models.ManyToManyField(User, related_name="admin")
 
     def __str__(self):
         return self.name
