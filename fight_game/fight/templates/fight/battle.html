@@ -1,0 +1,17 @@
+{% extends '_base.html' %}
+{% block title %}
+    <title>Battle Screen</title>
+{% endblock title %}
+{% block content %}
+    {% for item in battle %}
+        <h1>{{ item.player }}</h1>
+        <h3>{{ item.figure }}</h3>
+        <h3>{{ item.image }}</h3>
+        <h3>{{ item.image__image_url }}</h3>
+        <h3>{{ item.notoriety }}</h3>
+        <h3>{{ item.luck }}</h3>
+        <h3>{{ item.intelligence }}</h3>
+        <h3>{{ item.strength }}</h3>
+    {% endfor %}
+    {% comment %} <img src="{{ item.image_url }}" alt="" /> {% endcomment %}
+{% endblock content %}

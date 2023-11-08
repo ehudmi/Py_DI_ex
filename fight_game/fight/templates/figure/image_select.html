@@ -1,14 +1,18 @@
 {% extends '_base.html' %}
 {% block content %}
+    {% include 'navbar.html' %}
     {% if images %}
         {% for image in images %}
             <h1>{{ image.name }}</h1>
-            <img src="{{ image.thumbnail }}" alt="" />
+            <h1>{{ image.id }}</h1>
+            <img src="{{ image.image_url }}" alt="" />
             <h1>{{ image.image_url }}</h1>
-            <form action="{% url 'select-image' %}" method="POST">
+            <h1>{{ figure.id }}</h1>
+            <form action="{% url 'selected-image' figure.id %}" method="POST">
                 {% csrf_token %}
                 <input name="id" type="hidden" value="{{ image.id }}" />
-                <input name="image_url" type="hidden" value="{{ image.thumbnail }}" />
+                <input name="name" type="hidden" value="{{ image.name }}" />
+                <input name="image_url" type="hidden" value="{{ image.image_url }}" />
                 <button type="submit">Select</button>
             </form>
         {% endfor %}
