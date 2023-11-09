@@ -3,22 +3,18 @@
 {% block title %}
     <title>Home</title>
 {% endblock title %}
-{% block navbar %}
-    {% include 'navbar.html' %}
-{% endblock navbar %}
 {% block content %}
-    <h1>Welcome to Historical Fight Club</h1>
-    {% if user.is_authenticated %}
-        Hi {{ user.username }}!
-        <p>
-            <a href="{% url 'search-figure' %}">Start the game</a>
-        </p>
-        <p>
-            <a href="{% url 'logout' %}">Log Out</a>
-        </p>
-    {% else %}
-        <p>You are not logged in</p>
-        <a href="{% url 'login' %}">Log In</a> |
-        <a href="{% url 'signup' %}">Sign Up</a>
-    {% endif %}
+    <div class="text-center">
+        <h1 class="text-primary">Welcome to Historical Fight Club</h1>
+        {% if user.is_authenticated %}
+            <h3>
+                Hi <span class="text-danger">{{ user.username }}</span>!
+            </h3>
+            <a href="{% url 'search-figure' %}">
+                <button class="btn btn-primary">Start the game</button>
+            </a>
+        {% else %}
+            <h2 class="text-danger">You are not logged in</h2>
+        {% endif %}
+    </div>
 {% endblock content %}

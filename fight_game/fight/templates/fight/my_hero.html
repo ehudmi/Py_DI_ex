@@ -3,18 +3,23 @@
     <title>My Hero Screen</title>
 {% endblock title %}
 {% block content %}
-    <h1>My Selected Hero</h1>
-    <h1>{{ figure.name }}</h1>
-    <h3>{{ figure.title }}</h3>
-    <h3>{{ figure.occupation }}</h3>
-    <img src="{{ image.image_url }}" alt="" />
-    <form action="{% url 'create-opponent' %}" method="POST">
-        {% csrf_token %}
-        <button type="submit">Select Rival</button>
-    </form>
-    <form action="{% url 'create-opponent-occupation' %}" method="POST">
-        {% csrf_token %}
-        <input name="occupation" type="hidden" value="{{ figure.occupation }}" />
-        <button type="submit">Select Rival by occupation</button>
-    </form>
+    <h1 class="text-center text-primary">My Selected Hero - {{ figure.name }}</h1>
+    <div class="card">
+        <img class="rounded mx-auto d-block" src="{{ image.image_url }}" alt="" />
+        <div class="card-body text-center">
+            <h5 class="card-text">{{ figure.title }}</h5>
+            <h3 class="d-none">{{ figure.occupation }}</h3>
+            <div class="row row-cols-2">
+                <form action="{% url 'create-opponent' %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-primary mb-2" type="submit">Select Rival</button>
+                </form>
+                <form action="{% url 'create-opponent-occupation' %}" method="POST">
+                    {% csrf_token %}
+                    <input name="occupation" type="hidden" value="{{ figure.occupation }}" />
+                    <button class="btn btn-primary mb-2" type="submit">Select Rival by occupation</button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

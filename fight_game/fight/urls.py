@@ -2,8 +2,6 @@ from django.urls import path
 from .views import (
     SignUpView,
     HomeView,
-    # get_figure,
-    # get_image,
     search_figure,
     after_select_figure,
     get_images,
@@ -11,13 +9,14 @@ from .views import (
     create_opponent_by_name,
     create_opponent_by_occupation,
     BattleView,
+    OutcomeView,
+    cleanup,
+    ProfileView,
 )
 
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
     path("signup/", SignUpView.as_view(), name="signup"),
-    # path("get_figure/", get_figure, name="get-figure"),
-    # path("get_image/", get_image, name="get-image"),
     path("search_figure/", search_figure, name="search-figure"),
     path("selected_figure/", after_select_figure, name="selected-figure"),
     path("get_images/<id>", get_images, name="get-images"),
@@ -33,4 +32,7 @@ urlpatterns = [
         name="create-opponent-occupation",
     ),
     path("battle/", BattleView.as_view(), name="battle"),
+    path("outcome/", OutcomeView.as_view(), name="outcome"),
+    path("cleanup/", cleanup, name="cleanup"),
+    path("profile/", ProfileView.as_view(), name="profile"),
 ]

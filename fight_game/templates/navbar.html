@@ -17,18 +17,21 @@
                 </li>
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">My Profile</a>
+                        <a class="nav-link" href={% url "profile" %}>My Profile</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href={% url "logout" %}>Logout</a>
                     </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href={% url "login" %}>Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href={% url "signup" %}>Signup</a>
+                    </li>
                 {% endif %}
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle"
-                       href="#"
-                       role="button"
-                       data-bs-toggle="dropdown"
-                       aria-expanded="false">Dropdown</a>
+                {% comment %} <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
                     <ul class="dropdown-menu">
                         <li>
                             <a class="dropdown-item" href="#">Action</a>
@@ -46,15 +49,12 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>
+                </li> {% endcomment %}
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2"
-                       type="search"
-                       placeholder="Search"
-                       aria-label="Search">
+            {% comment %} <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            </form> {% endcomment %}
         </div>
     </div>
 </nav>

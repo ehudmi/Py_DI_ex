@@ -6,7 +6,8 @@ from random import randint
 # load API key from config file
 with open("config/_env_var.json") as file:
     data = json.load(file)
-API_KEY = data["MY_API_KEY"]
+RAPID_API_KEY = data["RAPID_API_KEY"]
+BING_API_KEY = data["BING_API_KEY"]
 
 SUBSTITUTIONS = {
     ", ": " ",
@@ -36,7 +37,7 @@ def get_API_figure(request, value, offset):
     url = "https://historical-figures-by-api-ninjas.p.rapidapi.com/v1/historicalfigures"
     querystring = {"name": value, "offset": offset}
     headers = {
-        "X-RapidAPI-Key": API_KEY,
+        "X-RapidAPI-Key": RAPID_API_KEY,
         "X-RapidAPI-Host": "historical-figures-by-api-ninjas.p.rapidapi.com",
     }
     response = requests.get(url, headers=headers, params=querystring)
@@ -80,12 +81,9 @@ def get_API_figure(request, value, offset):
 
 # function to get data from the Bing Image Search API
 def get_API_image(request, name):
-    url = "https://bing-image-search1.p.rapidapi.com/images/search"
+    url = "https://api.bing.microsoft.com/v7.0/images/search"
     querystring = {"q": name}
-    headers = {
-        "X-RapidAPI-Key": API_KEY,
-        "X-RapidAPI-Host": "bing-image-search1.p.rapidapi.com",
-    }
+    headers = {"Ocp-Apim-Subscription-Key": BING_API_KEY}
     response = requests.get(url, headers=headers, params=querystring)
     image_json = response.json()
     image_list = []

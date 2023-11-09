@@ -1,0 +1,24 @@
+{% extends '_base.html' %}
+{% block title %}
+    <title>Battle Screen</title>
+{% endblock title %}
+{% block content %}
+    <div class="text-center">
+        <h1 class="text-primary">Profile page for {{ user.username }}</h1>
+        <h5>Matches Played: {{ profile.matches_played }}</h5>
+        <h5>Matches Won: {{ profile.matches_won }}</h5>
+    </div>
+    {% comment %} <div class="row row-cols-3 row-cols-md-4 g-4 text-center">
+        {% for figure in profile.figures_played.all %}
+            <div class="col p-2">
+                <div class="card h-100">
+                    <img src="{{ figure.image.image_url }}" class="card-img-top h-100" alt="" />
+                    <div class="card-body">
+                        <h5 class="card-title">{{ figure.name }}</h5>
+                        <h5 class="card-title">{{ figure.title }}</h5>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div> {% endcomment %}
+{% endblock content %}
