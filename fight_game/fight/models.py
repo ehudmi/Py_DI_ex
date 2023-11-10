@@ -17,7 +17,7 @@ class Figure(models.Model):
 class FigureImage(models.Model):
     id = models.CharField(max_length=100, primary_key=True)
     name = models.CharField(max_length=100, null=True, blank=True)
-    image_url = models.URLField()
+    image_url = models.URLField(max_length=500)
     figure = models.ForeignKey(Figure, on_delete=models.CASCADE)
 
     def __str__(self):

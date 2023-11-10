@@ -6,7 +6,13 @@ from random import randint
 from faker import Faker
 from .forms import CustomUserCreationForm, SearchFigure
 from .models import FightUser, Figure, FigureImage, Battle
-from .services import get_API_figure, get_API_image, get_API_WIKI_info, calc_score
+from .services import (
+    get_API_figure,
+    get_API_image,
+    get_API_WIKI_info,
+    calc_score,
+    replace,
+)
 
 fake = Faker()
 
@@ -35,42 +41,69 @@ def search_figure(request):
             # if the user has input a name but no occupation, search for figures with that name
             if occupation == "":
                 context["name"] = name
-                context["figures"] = Figure.objects.filter(name__icontains=name).all()
-                if context["figures"].count() == 0:
-                    messages.info(
-                        request,
-                        f"No figures with name {name} found in db. Retrieving from API.",
+                figures = Figure.objects.filter(name__icontains=name).all()
+                if figures.count() < 10:
+                    context["figures"] = (
+                        list(figures)
+                        + get_API_figure(request, name, randint(0, 10))[
+                            0 : 10 - figures.count()
+                        ]
                     )
-                    context["figures"] = get_API_figure(request, name, randint(0, 10))
+                    if figures.count() == 0:
+                        messages.info(
+                            request,
+                            f"No figures with name {name} found in db. Retrieving from API.",
+                        )
+                    else:
+                        messages.info(
+                            request,
+                            f"Some figures with name {name} found in db. Retrieved more from API.",
+                        )
             # if the user has input an occupation but no name, search for figures with that occupation
             elif name == "":
                 context["occupation"] = occupation
-                context["figures"] = Figure.objects.filter(
-                    occupation__icontains=occupation
-                ).all()
-                if context["figures"].count() == 0:
-                    messages.info(
-                        request,
-                        f"No figures with occupation {occupation} found in db. To Search the API - input just name.",
+                figures = Figure.objects.filter(occupation__icontains=occupation).all()
+                if figures.count() < 10:
+                    context["figures"] = (
+                        list(figures)
+                        + get_API_figure(
+                            request, f"{name} ({occupation})", randint(0, 10)
+                        )[0 : 10 - figures.count()]
                     )
-                    context["figures"] = get_API_figure(
-                        request, f"{name} ({occupation})", randint(0, 10)
-                    )
+                    if figures.count() == 0:
+                        messages.info(
+                            request,
+                            f"No figures with occupation {occupation} found in db. Retrieving from API.",
+                        )
+                    else:
+                        messages.info(
+                            request,
+                            f"Some figures with occupation {occupation} found in db. Got more from API.",
+                        )
             # if the user has input both a name and an occupation, search for figures with both
             else:
                 context["name"] = name
                 context["occupation"] = occupation
-                context["figures"] = Figure.objects.filter(
+                figures = Figure.objects.filter(
                     occupation__icontains=occupation, name__icontains=name
                 ).all()
-                if context["figures"].count() == 0:
-                    messages.info(
-                        request,
-                        f"No figures with name {name} and occupation {occupation} found in db. To Search the API - input just name.",
+                if figures.count() < 10:
+                    context["figures"] = (
+                        list(figures)
+                        + get_API_figure(
+                            request, f"{name} ({occupation})", randint(0, 10)
+                        )[0 : 10 - figures.count()]
                     )
-                    context["figures"] = get_API_figure(
-                        request, f"{name} ({occupation})", randint(0, 10)
-                    )
+                    if figures.count() == 0:
+                        messages.info(
+                            request,
+                            f"No figures with name {name} and occupation {occupation} found in db. Retrieving from API.",
+                        )
+                    else:
+                        messages.info(
+                            request,
+                            f"Some figures with name {name} and occupation {occupation} found in db. Retrieved more from API",
+                        )
             return render(request, "figure/search_results.html", context)
     else:
         form = SearchFigure()
@@ -100,10 +133,21 @@ def get_images(request, id):
     if figure is not None:
         context["figure"] = figure
         images = FigureImage.objects.filter(figure=figure).all()
-        if images.count() > 0:
-            context["images"] = images
-        if list(images) == []:
-            context["images"] = get_API_image(request, figure.name)
+        if images.count() < 10:
+            context["images"] = (
+                list(images)
+                + get_API_image(request, figure.name)[0 : 10 - images.count()]
+            )
+            if images.count() == 0:
+                messages.info(
+                    request,
+                    f"No images found in db for {figure.name}. Retrieving from API.",
+                )
+            else:
+                messages.info(
+                    request,
+                    f"Some images found in db for {figure.name}. Retrieved more from API.",
+                )
     return render(request, "figure/image_select.html", context)
 
 
@@ -144,67 +188,92 @@ def after_select_image(request, id):
 def create_opponent_by_name(request):
     rival = {}
     rival_name = fake.first_name()
-    rivals = Figure.objects.filter(name__icontains=rival_name).all()
-    # if there are no figures with that name in the db, get a random figure from the API
-    if rivals.count() == 0:
-        while get_API_figure(request, rival_name, randint(0, 10)) == []:
-            rival_name = fake.first_name()
-            get_rival = get_API_figure(request, rival_name, 0)[randint(0, 10)]
-        else:
-            get_rival = get_API_figure(request, rival_name, 0)[randint(0, 10)]
-            rival = Figure.objects.create(
-                name=get_rival["name"],
-                title=get_rival["title"],
-                occupation=get_rival["occupation"],
-            )
-            # get images for the figure
-            rival_images = get_API_image(request, get_rival["name"])
-            get_image = rival_images[randint(0, len(rival_images) - 1)]
-            image = FigureImage.objects.create(
-                id=get_image["id"],
-                name=get_image["name"],
-                image_url=get_image["image_url"],
-                figure=rival,
-            )
-    # add the figure to the battle
+    while get_API_figure(request, rival_name, randint(0, 10)) == []:
+        rival_name = fake.first_name()
+        get_rival = get_API_figure(request, rival_name, randint(0, 10))[randint(0, 10)]
+        print("here", get_rival, rival_name)
     else:
-        rival = rivals[randint(0, rivals.count() - 1)]
+        get_rival = get_API_figure(request, rival_name, randint(0, 10))[randint(0, 10)]
+        print("here1", get_rival, rival_name)
+        new = (
+            Figure.objects.filter(name=get_rival["name"])
+            .filter(title=get_rival["title"])
+            .all()
+        )
+        print(new)
+    if (
+        Figure.objects.filter(name=get_rival["name"])
+        .filter(title=get_rival["title"])
+        .count()
+        == 0
+    ):
+        rival = Figure.objects.create(
+            name=get_rival["name"],
+            title=get_rival["title"],
+            occupation=get_rival["occupation"],
+        )
+        print("here2", rival, rival_name)
+        # get images for the figure
+        rival_images = get_API_image(request, get_rival["name"])
+        get_image = rival_images[randint(0, len(rival_images) - 1)]
+        image = FigureImage.objects.create(
+            id=get_image["id"],
+            name=get_image["name"],
+            image_url=get_image["image_url"],
+            figure=rival,
+        )
+    else:
+        rival = (
+            Figure.objects.filter(name=get_rival["name"])
+            .filter(title=get_rival["title"])
+            .first()
+        )
+        print("here3", rival, rival_name)
         images = FigureImage.objects.filter(figure=rival).all()
         image = images[randint(0, images.count() - 1)]
+    # add the figure to the battle
     battle_rival = Battle.objects.filter(figure=rival).first()
     if request.user.is_authenticated and battle_rival is None:
         add_to_battle = Battle.objects.create(figure=rival, image=image)
     # update the battle with the figure's attributes
-    scores = calc_score(rival.notoriety, rival.luck)
-    update_battle = Battle.objects.filter(figure=rival).update(
-        notoriety=scores["notoriety"],
-        intelligence=scores["intelligence"],
-        strength=scores["strength"],
-        luck=scores["luck"],
-        score=scores["score"],
-    )
+    if rival is not None:
+        scores = calc_score(rival.notoriety, rival.luck)
+        update_battle = Battle.objects.filter(figure=rival).update(
+            notoriety=scores["notoriety"],
+            intelligence=scores["intelligence"],
+            strength=scores["strength"],
+            luck=scores["luck"],
+            score=scores["score"],
+        )
 
     return redirect("battle")
 
 
 # create an opponent by occupation
-def create_opponent_by_occupation(request):
+def create_opponent_by_occupation(request, id):
     rival = {}
-    rival_name = fake.first_name()
-    occupation = request.POST.get("occupation")
-    if occupation != "":
-        rivals = Figure.objects.filter(occupation__icontains=occupation).all()
-        # if there are no figures with that occupation in the db, get a random figure from the API
-        if rivals.count() == 0:
-            while get_API_figure(request, rival_name, randint(0, 10)) == []:
-                rival_name = fake.first_name()
-                get_rival = get_API_figure(request, f"{rival_name} ({occupation})", 0)[
-                    randint(0, 10)
-                ]
+    figure = Figure.objects.filter(pk=id).first()
+    if figure is not None:
+        get_occupation = figure.occupation
+        if get_occupation != "":
+            fix_occupation = replace(
+                get_occupation, {"[": "", "]": "", ", ": ",", "'": ""}
+            )
+            occupation_list = fix_occupation.split(",")
+            occupation = occupation_list[randint(0, len(occupation_list) - 1)]
+            while get_API_figure(request, f"({occupation})", randint(0, 10)) == []:
+                rivals = get_API_figure(request, f"({occupation})", randint(0, 10))
+                get_rival = rivals[randint(0, len(rivals) - 1)]
             else:
-                get_rival = get_API_figure(request, f"{rival_name} ({occupation})", 0)[
-                    randint(0, 10)
-                ]
+                rivals = get_API_figure(request, f"({occupation})", randint(0, 10))
+                get_rival = rivals[randint(0, len(rivals) - 1)]
+                print("here2", get_rival, occupation_list)
+            if (
+                Figure.objects.filter(name=get_rival["name"])
+                .filter(title=get_rival["title"])
+                .count()
+                == 0
+            ):
                 rival = Figure.objects.create(
                     name=get_rival["name"],
                     title=get_rival["title"],
@@ -219,23 +288,28 @@ def create_opponent_by_occupation(request):
                     image_url=get_image["image_url"],
                     figure=rival,
                 )
-        else:
-            rival = rivals[randint(0, rivals.count() - 1)]
-            print(rival)
-            images = FigureImage.objects.filter(figure=rival).all()
-            image = images[randint(0, images.count() - 1)]
-        battle_rival = Battle.objects.filter(figure=rival).first()
-        if request.user.is_authenticated and battle_rival is None:
-            add_to_battle = Battle.objects.create(figure=rival, image=image)
-            # update the battle with the figure's attributes
-        scores = calc_score(rival.notoriety, rival.luck)
-        update_battle = Battle.objects.filter(figure=rival).update(
-            notoriety=scores["notoriety"],
-            intelligence=scores["intelligence"],
-            strength=scores["strength"],
-            luck=scores["luck"],
-            score=scores["score"],
-        )
+            else:
+                rival = (
+                    Figure.objects.filter(name=get_rival["name"])
+                    .filter(title=get_rival["title"])
+                    .first()
+                )
+
+                images = FigureImage.objects.filter(figure=rival).all()
+                image = images[randint(0, images.count() - 1)]
+            battle_rival = Battle.objects.filter(figure=rival).first()
+            if request.user.is_authenticated and battle_rival is None:
+                add_to_battle = Battle.objects.create(figure=rival, image=image)
+                # update the battle with the figure's attributes
+            if rival is not None:
+                scores = calc_score(rival.notoriety, rival.luck)
+                update_battle = Battle.objects.filter(figure=rival).update(
+                    notoriety=scores["notoriety"],
+                    intelligence=scores["intelligence"],
+                    strength=scores["strength"],
+                    luck=scores["luck"],
+                    score=scores["score"],
+                )
     return redirect("battle")
 
 

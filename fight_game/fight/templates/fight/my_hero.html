@@ -10,15 +10,12 @@
             <h5 class="card-text">{{ figure.title }}</h5>
             <h3 class="d-none">{{ figure.occupation }}</h3>
             <div class="row row-cols-2">
-                <form action="{% url 'create-opponent' %}" method="POST">
-                    {% csrf_token %}
-                    <button class="btn btn-primary mb-2" type="submit">Select Rival</button>
-                </form>
-                <form action="{% url 'create-opponent-occupation' %}" method="POST">
-                    {% csrf_token %}
-                    <input name="occupation" type="hidden" value="{{ figure.occupation }}" />
-                    <button class="btn btn-primary mb-2" type="submit">Select Rival by occupation</button>
-                </form>
+                <a href={% url 'create-opponent' %}>
+                    <button class="btn btn-primary mb-2">Select Rival</button>
+                </a>
+                <a href={% url 'create-opponent-occupation' figure.id %}>
+                    <button class="btn btn-primary mb-2">Select Rival by occupation</button>
+                </a>
             </div>
         </div>
     </div>

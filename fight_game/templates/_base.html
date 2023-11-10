@@ -12,6 +12,9 @@
   </head>
   <body>
     <div class="container">
+      {% block navbar %}
+        {% include 'navbar.html' %}
+      {% endblock navbar %}
       {% if messages %}
         <div class="messages">
           {% for message in messages %}
@@ -19,9 +22,6 @@
           {% endfor %}
         </div>
       {% endif %}
-      {% block navbar %}
-        {% include 'navbar.html' %}
-      {% endblock navbar %}
       {% block content %}
       {% endblock content %}
     </div>

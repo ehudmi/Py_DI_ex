@@ -28,7 +28,7 @@ urlpatterns = [
     ),
     path("create_opponent_by_name/", create_opponent_by_name, name="create-opponent"),
     path(
-        "create_opponent_by_occupation/",
+        "create_opponent_by_occupation/<id>",
         create_opponent_by_occupation,
         name="create-opponent-occupation",
     ),
