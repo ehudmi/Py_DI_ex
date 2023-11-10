@@ -5,10 +5,12 @@
 {% block content %}
     <h1 class="text-center text-primary">{{ figure.name }}</h1>
     <div class="card">
-        <img class="rounded mx-auto d-block" src="{{ image.image_url }}" alt="" />
-        <div class="card-body text-center">
-            <h5 class="card-text">{{ figure.title }}</h5>
-            <p class="card-text text-start">{{ wiki }}</p>
+        <div class="row">
+            <img class="img-thumbnail col-4" src="{{ image.image_url }}" alt="" />
+            <div class="card-body text-center col-8">
+                <h5 class="card-text">{{ figure.title }}</h5>
+                <p class="card-text text-start">{{ wiki }}</p>
+            </div>
         </div>
     </div>
 {% endblock content %}
