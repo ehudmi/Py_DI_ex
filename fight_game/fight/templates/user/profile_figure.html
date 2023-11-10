@@ -1,0 +1,14 @@
+{% extends '_base.html' %}
+{% block title %}
+    <title>Figure Details</title>
+{% endblock title %}
+{% block content %}
+    <h1 class="text-center text-primary">{{ figure.name }}</h1>
+    <div class="card">
+        <img class="rounded mx-auto d-block" src="{{ image.image_url }}" alt="" />
+        <div class="card-body text-center">
+            <h5 class="card-text">{{ figure.title }}</h5>
+            <p class="card-text text-start">{{ wiki }}</p>
+        </div>
+    </div>
+{% endblock content %}

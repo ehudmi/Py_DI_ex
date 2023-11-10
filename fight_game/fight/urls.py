@@ -12,6 +12,7 @@ from .views import (
     OutcomeView,
     cleanup,
     ProfileView,
+    ProfileFigureView,
 )
 
 urlpatterns = [
@@ -35,4 +36,5 @@ urlpatterns = [
     path("outcome/", OutcomeView.as_view(), name="outcome"),
     path("cleanup/", cleanup, name="cleanup"),
     path("profile/", ProfileView.as_view(), name="profile"),
+    path("profile_figure/<pk>", ProfileFigureView.as_view(), name="profile-figure"),
 ]

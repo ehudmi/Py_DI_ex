@@ -98,6 +98,32 @@ def get_API_image(request, name):
     return image_list
 
 
+# function to get data from the Wikipedia API
+def get_API_WIKI_info(request, name):
+    url = "https://en.wikipedia.org/w/api.php"
+    querystring = {
+        "action": "query",
+        "format": "json",
+        "prop": "extracts",
+        "exintro": "",
+        "explaintext": "",
+        "redirects": 1,
+        "titles": name,
+    }
+    response = requests.get(url, params=querystring)
+    wiki_json = response.json()
+    wiki_list = []
+    for page in wiki_json["query"]["pages"]:
+        wiki_list.append(
+            {
+                "title": wiki_json["query"]["pages"][page]["title"],
+                "extract": wiki_json["query"]["pages"][page]["extract"],
+            }
+        )
+    return wiki_list[0]["extract"]
+
+
+# function to calculate the score for a figure
 def calc_score(notoriety, luck):
     score = 0
     intelligence = randint(1, 6)

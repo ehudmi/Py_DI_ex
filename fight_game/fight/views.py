@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, TemplateView, ListView
+from django.views.generic import CreateView, TemplateView, ListView, DetailView
 from django.contrib import messages
 from random import randint
 from faker import Faker
 from .forms import CustomUserCreationForm, SearchFigure
 from .models import FightUser, Figure, FigureImage, Battle
-from .services import get_API_figure, get_API_image, calc_score
+from .services import get_API_figure, get_API_image, get_API_WIKI_info, calc_score
 
 fake = Faker()
 
@@ -269,6 +269,25 @@ class ProfileView(ListView):
 
     def get_queryset(self):
         profile = FightUser.objects.filter(username=self.request.user).first()
-        if profile is not None:
-            print(profile.figures_played.all())
         return profile
+
+
+class ProfileFigureView(DetailView):
+    model = Figure
+    template_name = "user/profile_figure.html"
+    context_object_name = "figure"
+
+    def get_queryset(self):
+        if self.kwargs.get("pk") is not None:
+            figure = Figure.objects.filter(pk=self.kwargs.get("pk")).all()
+            return figure
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        figure = Figure.objects.filter(pk=self.kwargs.get("pk")).first()
+        images = FigureImage.objects.filter(figure=figure).all()
+        image = images[randint(0, images.count() - 1)]
+        context["image"] = image
+        if figure is not None:
+            context["wiki"] = get_API_WIKI_info(self.request, figure.name)
+        return context
