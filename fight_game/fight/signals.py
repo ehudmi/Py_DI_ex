@@ -25,6 +25,7 @@ def update_results(sender, **kwargs):
     if battle is not None and battle.player is not None and battle.figure is not None:
         figure = Figure.objects.get(id=battle.figure.pk)
         figure.luck += 1
+        figure.save()
         winner = FightUser.objects.get(id=battle.player.pk)
         winner.figures_played.add(figure)
         winner.matches_played += 1
@@ -39,6 +40,7 @@ def update_results(sender, **kwargs):
         ):
             figure = Figure.objects.get(id=battle.figure.pk)
             figure.luck -= 1
+            figure.save()
             loser = FightUser.objects.get(id=battle.player.pk)
             loser.figures_played.add(figure)
             loser.matches_played += 1

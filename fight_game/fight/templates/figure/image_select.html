@@ -14,7 +14,6 @@
                             <h5 class="card-title">{{ image.name }}</h5>
                             <p class="d-none">{{ image.id }}</p>
                             <p class="d-none">{{ image.image_url }}</p>
-                            {% comment %} <p class="card-text">{{ figure.id }}</p> {% endcomment %}
                             <form action="{% url 'selected-image' figure.id %}" method="POST">
                                 {% csrf_token %}
                                 <input name="id" type="hidden" value="{{ image.id }}" />

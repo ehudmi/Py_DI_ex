@@ -190,10 +190,12 @@ def create_opponent_by_name(request):
     rival_name = fake.first_name()
     while get_API_figure(request, rival_name, randint(0, 10)) == []:
         rival_name = fake.first_name()
-        get_rival = get_API_figure(request, rival_name, randint(0, 10))[randint(0, 10)]
+        rivals = get_API_figure(request, rival_name, randint(0, 10))
+        get_rival = rivals[randint(0, len(rivals) - 1)]
         print("here", get_rival, rival_name)
     else:
-        get_rival = get_API_figure(request, rival_name, randint(0, 10))[randint(0, 10)]
+        rivals = get_API_figure(request, rival_name, randint(0, 10))
+        get_rival = rivals[randint(0, len(rivals) - 1)]
         print("here1", get_rival, rival_name)
         new = (
             Figure.objects.filter(name=get_rival["name"])
@@ -264,10 +266,10 @@ def create_opponent_by_occupation(request, id):
             while get_API_figure(request, f"({occupation})", randint(0, 10)) == []:
                 rivals = get_API_figure(request, f"({occupation})", randint(0, 10))
                 get_rival = rivals[randint(0, len(rivals) - 1)]
+                print("trying")
             else:
                 rivals = get_API_figure(request, f"({occupation})", randint(0, 10))
                 get_rival = rivals[randint(0, len(rivals) - 1)]
-                print("here2", get_rival, occupation_list)
             if (
                 Figure.objects.filter(name=get_rival["name"])
                 .filter(title=get_rival["title"])

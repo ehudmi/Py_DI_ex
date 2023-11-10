@@ -4,18 +4,20 @@
 {% endblock title %}
 {% block content %}
     <h1 class="text-center text-primary">My Selected Hero - {{ figure.name }}</h1>
-    <div class="card">
-        <img class="rounded mx-auto d-block" src="{{ image.image_url }}" alt="" />
-        <div class="card-body text-center">
-            <h5 class="card-text">{{ figure.title }}</h5>
-            <h3 class="d-none">{{ figure.occupation }}</h3>
-            <div class="row row-cols-2">
-                <a href={% url 'create-opponent' %}>
-                    <button class="btn btn-primary mb-2">Select Rival</button>
-                </a>
-                <a href={% url 'create-opponent-occupation' figure.id %}>
-                    <button class="btn btn-primary mb-2">Select Rival by occupation</button>
-                </a>
+    <div class="d-flex justify-content-center">
+        <div class="card w-50">
+            <img class="rounded d-block" src="{{ image.image_url }}" alt="" />
+            <div class="card-body text-center">
+                <h5 class="card-text">{{ figure.title }}</h5>
+                <h3 class="d-none">{{ figure.occupation }}</h3>
+                <div class="d-flex justify-content-evenly">
+                    <a href={% url 'create-opponent' %}>
+                        <button class="btn btn-primary mb-2">Select Rival</button>
+                    </a>
+                    <a href={% url 'create-opponent-occupation' figure.id %}>
+                        <button class="btn btn-primary mb-2">Select Rival by occupation</button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
