@@ -1,13 +1,12 @@
 import requests
-import json
 import re
 from random import randint
+from environ import Env
 
-# load API key from config file
-with open("config/_env_var.json") as file:
-    data = json.load(file)
-RAPID_API_KEY = data["RAPID_API_KEY"]
-BING_API_KEY = data["BING_API_KEY"]
+# load API key from environment variable
+env = Env()
+RAPID_API_KEY = env("RAPID_API_KEY")
+BING_API_KEY = env("BING_API_KEY")
 
 SUBSTITUTIONS = {
     ", ": " ",

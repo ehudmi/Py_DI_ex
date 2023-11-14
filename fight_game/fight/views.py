@@ -192,17 +192,14 @@ def create_opponent_by_name(request):
         rival_name = fake.first_name()
         rivals = get_API_figure(request, rival_name, randint(0, 10))
         get_rival = rivals[randint(0, len(rivals) - 1)]
-        print("here", get_rival, rival_name)
     else:
         rivals = get_API_figure(request, rival_name, randint(0, 10))
         get_rival = rivals[randint(0, len(rivals) - 1)]
-        print("here1", get_rival, rival_name)
         new = (
             Figure.objects.filter(name=get_rival["name"])
             .filter(title=get_rival["title"])
             .all()
         )
-        print(new)
     if (
         Figure.objects.filter(name=get_rival["name"])
         .filter(title=get_rival["title"])
@@ -214,7 +211,6 @@ def create_opponent_by_name(request):
             title=get_rival["title"],
             occupation=get_rival["occupation"],
         )
-        print("here2", rival, rival_name)
         # get images for the figure
         rival_images = get_API_image(request, get_rival["name"])
         get_image = rival_images[randint(0, len(rival_images) - 1)]
@@ -230,7 +226,6 @@ def create_opponent_by_name(request):
             .filter(title=get_rival["title"])
             .first()
         )
-        print("here3", rival, rival_name)
         images = FigureImage.objects.filter(figure=rival).all()
         image = images[randint(0, images.count() - 1)]
     # add the figure to the battle
@@ -266,7 +261,6 @@ def create_opponent_by_occupation(request, id):
             while get_API_figure(request, f"({occupation})", randint(0, 10)) == []:
                 rivals = get_API_figure(request, f"({occupation})", randint(0, 10))
                 get_rival = rivals[randint(0, len(rivals) - 1)]
-                print("trying")
             else:
                 rivals = get_API_figure(request, f"({occupation})", randint(0, 10))
                 get_rival = rivals[randint(0, len(rivals) - 1)]
@@ -329,6 +323,38 @@ class OutcomeView(ListView):
     def get_queryset(self):
         battle = Battle.objects.all().order_by("-score")
         winner = battle.first()
+        if (
+            winner is not None
+            and winner.player is not None
+            and winner.figure is not None
+        ):
+            winner.player.matches_played += 1
+            winner.player.figures_played.add(winner.figure)
+            winner.player.matches_won += 1
+            winner.player.save()
+            winner.figure.luck += 1
+            winner.figure.save()
+
+        else:
+            if (
+                winner is not None
+                and winner.figure is not None
+                and winner.player is None
+            ):
+                winner.figure.luck += 1
+                winner.figure.save()
+        loser = battle.last()
+        if loser is not None and loser.player is not None and loser.figure is not None:
+            loser.player.matches_played += 1
+            loser.player.figures_played.add(loser.figure)
+            loser.player.save()
+            loser.figure.luck -= 1
+            loser.figure.save()
+
+        else:
+            if loser is not None and loser.figure is not None and loser.player is None:
+                loser.figure.luck -= 1
+                loser.figure.save()
         return winner
 
 
